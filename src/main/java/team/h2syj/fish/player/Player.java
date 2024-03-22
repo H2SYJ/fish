@@ -2,8 +2,8 @@ package team.h2syj.fish.player;
 
 import java.util.List;
 import team.h2syj.fish.core.Biological;
-import team.h2syj.fish.core.Card;
 import team.h2syj.fish.core.Card.AttackCard;
+import team.h2syj.fish.utils.DamageCalculator;
 
 public class Player extends Biological {
     public Player(double hp) {
@@ -27,8 +27,11 @@ public class Player extends Biological {
         }
 
         @Override
-        public void execute(List<Biological> target) {
-
+        public void execute(Biological self, List<Biological> target) {
+            for (Biological biological : target) {
+                double damage = DamageCalculator.calculate(3, self, biological);
+                biological.injuried(damage);
+            }
         }
     }
 

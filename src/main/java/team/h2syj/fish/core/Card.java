@@ -8,7 +8,7 @@ public interface Card {
 
     String desc();
 
-    void execute(List<Biological> target);
+    void execute(Biological self, List<Biological> target);
 
     abstract class AbstractCard implements Card {
         @Override
