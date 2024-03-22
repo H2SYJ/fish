@@ -19,6 +19,6 @@ public class Deck {
 
     @Override
     public String toString() {
-        return String.join(SystemConfig.newline, cards.stream().map(Card::toString).toList());
+        return String.join(SystemSetting.newline, cards.stream().map(Card::toString).toList());
     }
 }
