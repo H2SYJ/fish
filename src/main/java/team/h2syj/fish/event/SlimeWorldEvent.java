@@ -10,12 +10,12 @@ import team.h2syj.fish.utils.Utils;
 public class SlimeWorldEvent extends MonsterWorldEvent {
     public SlimeWorldEvent() {
         // 随机1-3个史莱姆
-        IntStream.range(0, Utils.random(1, 3)).mapToObj(i -> new Slime()).forEach(monster::add);
+        IntStream.range(0, Utils.random(1, 3)).mapToObj(i -> new Slime()).forEach(monsters::add);
     }
 
     @Override
     public void join(Player p1, Player p2) {
         // 进入战斗
-        Runtime.fighting(p1, p2, monster);
+        Runtime.fighting(p1, p2, monsters);
     }
 }

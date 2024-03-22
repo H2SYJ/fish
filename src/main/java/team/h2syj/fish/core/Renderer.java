@@ -9,4 +9,9 @@ public class Renderer {
         System.out.printf((content) + "%n", args);
         return this;
     }
+
+    public Renderer print(Object obj) {
+        System.out.println(obj);
+        return this;
+    }
 }

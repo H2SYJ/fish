@@ -2,6 +2,7 @@ package team.h2syj.fish.player;
 
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.AttackCard;
+import team.h2syj.fish.core.Renderer;
 
 public class Player extends Biological {
     public Player() {
@@ -10,6 +11,11 @@ public class Player extends Biological {
         deck.add(new NormalAttackCard());
         deck.add(new NormalAttackCard());
         deck.add(new NormalAttackCard());
+    }
+
+    @Override
+    public void action() {
+        Renderer renderer = new Renderer("开始行动");
     }
 
 

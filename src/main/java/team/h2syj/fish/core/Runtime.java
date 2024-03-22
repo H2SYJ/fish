@@ -36,8 +36,21 @@ public class Runtime {
         new Controller().next("1", input -> new World(player).start());
     }
 
-    public static void fighting(Player p1, Player p2, List<Monster> monster) {
-        Renderer renderer = new Renderer("开始战斗");
+    public static void fighting(Player p1, Player p2, List<Monster> monsters) {
+        Renderer renderer = new Renderer("进入战斗");
+        Turn turn = new Turn(p1, p2, monsters);
+        Biological item = null;
+        while ((item = turn.next()) != null && !turn.win() && !turn.lose()) {
+            renderer.print("行动轴：（当前回合）%s", turn);
+            item.action();
+        }
+        if (turn.lose())
+            Runtime.endGame();
+    }
+
+    private static void endGame() {
+        Renderer renderer = new Renderer("游戏结束");
+        renderer.print("啊哈！你输了！");
     }
 
 }

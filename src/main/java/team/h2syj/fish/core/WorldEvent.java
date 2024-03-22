@@ -12,7 +12,7 @@ public interface WorldEvent {
     }
 
     abstract class MonsterWorldEvent implements WorldEvent {
-        protected List<Monster> monster = new ArrayList<>();
+        protected List<Monster> monsters = new ArrayList<>();
     }
 
     abstract class BossWorldEvent implements WorldEvent {

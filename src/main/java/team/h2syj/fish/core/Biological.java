@@ -18,6 +18,8 @@ public abstract class Biological {
         死亡;
     }
 
+    public abstract void action();
+
     public Biological(double hp) {
         this.hp = hp;
     }

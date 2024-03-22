@@ -10,4 +10,8 @@ public class SystemSetting {
      */
     public static double difficulty = 1d;
 
+    /**
+     * 是否为p1
+     */
+    public static boolean isPlayer1 = true;
 }
