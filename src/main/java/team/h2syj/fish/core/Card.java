@@ -1,27 +1,32 @@
 package team.h2syj.fish.core;
 
-public abstract class Card {
+import java.util.List;
 
-    public abstract String name();
+public interface Card {
 
-    public abstract String desc();
+    String name();
 
-    public abstract void execute(Biological target);
+    String desc();
 
-    public interface BuffCard {
+    void execute(List<Biological> target);
+
+    abstract class AbstractCard implements Card {
+        @Override
+        public String toString() {
+            return String.format("%s：%s", name(), desc());
+        }
     }
 
-    public interface DeBuffCard {
+    abstract class BuffCard extends AbstractCard {
     }
 
-    public interface AttackCard {
+    abstract class DeBuffCard extends AbstractCard {
     }
 
-    public interface MagicCard {
+    abstract class AttackCard extends AbstractCard {
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s：%s", name(), desc());
+    abstract class MagicCard extends AbstractCard {
     }
+
 }

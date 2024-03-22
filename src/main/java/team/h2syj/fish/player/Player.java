@@ -1,5 +1,6 @@
 package team.h2syj.fish.player;
 
+import java.util.List;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card;
 import team.h2syj.fish.core.Card.AttackCard;
@@ -14,7 +15,7 @@ public class Player extends Biological {
     }
 
 
-    public static class NormalAttackCard extends Card implements AttackCard {
+    public static class NormalAttackCard extends AttackCard {
         @Override
         public String name() {
             return "让我摸摸看！";
@@ -26,7 +27,7 @@ public class Player extends Biological {
         }
 
         @Override
-        public void execute(Biological target) {
+        public void execute(List<Biological> target) {
 
         }
     }

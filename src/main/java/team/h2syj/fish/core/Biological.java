@@ -15,4 +15,19 @@ public abstract class Biological {
         this.hp = hp;
     }
 
+    public List<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public void setBuffs(List<Buff> buffs) {
+        this.buffs = buffs;
+    }
+
+    public List<DeBuff> getDeBuffs() {
+        return deBuffs;
+    }
+
+    public void setDeBuffs(List<DeBuff> deBuffs) {
+        this.deBuffs = deBuffs;
+    }
 }
