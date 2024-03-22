@@ -5,13 +5,13 @@ public interface DeBuff {
 
     String desc();
 
-    int round();
+    int turn();
 
     abstract class AbstractDeBuff implements DeBuff {
-        protected int round;
+        protected int turn;
 
-        public AbstractDeBuff(int round) {
-            this.round = round;
+        public AbstractDeBuff(int turn) {
+            this.turn = turn;
         }
 
         @Override
@@ -20,31 +20,31 @@ public interface DeBuff {
         }
 
         @Override
-        public int round() {
-            return round;
+        public int turn() {
+            return turn;
         }
     }
 
     // 受到的伤害提升
     abstract class DamageUpDeBuff extends AbstractDeBuff {
-        public DamageUpDeBuff(int round) {
-            super(round);
+        public DamageUpDeBuff(int turn) {
+            super(turn);
         }
         public abstract double up(double damage);
     }
 
     // 造成的伤害降低
     abstract class DamageDownDeBuff extends AbstractDeBuff {
-        public DamageDownDeBuff(int round) {
-            super(round);
+        public DamageDownDeBuff(int turn) {
+            super(turn);
         }
         public abstract double down(double damage);
     }
 
     // 数值提升
     abstract class ExaltationDeBuff extends AbstractDeBuff {
-        public ExaltationDeBuff(int round) {
-            super(round);
+        public ExaltationDeBuff(int turn) {
+            super(turn);
         }
     }
 }

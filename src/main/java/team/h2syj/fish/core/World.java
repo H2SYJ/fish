@@ -1,6 +1,7 @@
 package team.h2syj.fish.core;
 
 import java.util.LinkedList;
+import team.h2syj.fish.event.SlimeWorldEvent;
 import team.h2syj.fish.player.Player;
 
 public class World {
@@ -20,9 +21,10 @@ public class World {
 
     private void init() {
         Renderer renderer = new Renderer("初始化世界");
-        renderer.print("生成怪物...");
-        renderer.print("生成随机事件...");
-        renderer.print("生成宝箱...");
+        renderer.print("怪物正在四处游荡...");
+        events.add(new SlimeWorldEvent());
+        renderer.print("每天的奇迹正在发生...");
+        renderer.print("神秘的宝箱里有什么呢...");
         renderer.print("商店老板进货中...");
         renderer.print("邪教徒召唤Boss中...");
     }

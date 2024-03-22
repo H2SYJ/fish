@@ -7,13 +7,13 @@ public interface Buff {
 
     String desc();
 
-    int round();
+    int turn();
 
     abstract class AbstractBuff implements Buff {
-        protected int round;
+        protected int turn;
 
-        public AbstractBuff(int round) {
-            this.round = round;
+        public AbstractBuff(int turn) {
+            this.turn = turn;
         }
 
         @Override
@@ -22,15 +22,15 @@ public interface Buff {
         }
 
         @Override
-        public int round() {
-            return round;
+        public int turn() {
+            return turn;
         }
     }
 
     // 造成的伤害提升
     abstract class DamageUpBuff extends AbstractBuff {
-        public DamageUpBuff(int round) {
-            super(round);
+        public DamageUpBuff(int turn) {
+            super(turn);
         }
 
         public abstract double up(double damage);
@@ -38,8 +38,8 @@ public interface Buff {
 
     // 受到的伤害降低
     abstract class DamageDownBuff extends AbstractBuff {
-        public DamageDownBuff(int round) {
-            super(round);
+        public DamageDownBuff(int turn) {
+            super(turn);
         }
 
         public abstract double down(double damage);
@@ -47,8 +47,8 @@ public interface Buff {
 
     // 数值提升
     abstract class ExaltationBuff extends AbstractBuff {
-        public ExaltationBuff(int round) {
-            super(round);
+        public ExaltationBuff(int turn) {
+            super(turn);
         }
 
         public abstract void execute(Biological target);
