@@ -1,5 +1,7 @@
 package team.h2syj.fish.core;
 
+import team.h2syj.fish.player.Player;
+
 public class Runtime {
 
     public static void home() {
@@ -22,12 +24,14 @@ public class Runtime {
     }
 
     public static void startSingle() {
-        System.out.println("""
+        Player player = new Player();
+        System.out.println(String.format("""
                 初始卡牌：
                 %s
-                           
+
                 1）继续
-                """);
+                """, player.deck));
+        new Controller().next("1", input -> new World(player).start());
     }
 
 }

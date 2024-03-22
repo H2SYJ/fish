@@ -1,6 +1,7 @@
 package team.h2syj.fish.core;
 
 import java.util.List;
+import team.h2syj.fish.utils.DamageCalculator;
 
 public interface Card {
 
@@ -24,6 +25,15 @@ public interface Card {
     }
 
     abstract class AttackCard extends AbstractCard {
+        public abstract double baseDamage();
+
+        @Override
+        public void execute(Biological self, List<Biological> target) {
+            for (Biological biological : target) {
+                double damage = DamageCalculator.calculate(baseDamage(), self, biological);
+                biological.injuried(damage);
+            }
+        }
     }
 
     abstract class MagicCard extends AbstractCard {
