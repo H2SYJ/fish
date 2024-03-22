@@ -1,6 +1,7 @@
 package team.h2syj.fish.core;
 
 import java.util.List;
+import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.player.Player;
 
 public class Runtime {
@@ -35,7 +36,7 @@ public class Runtime {
         new Controller().next("1", input -> new World(player).start());
     }
 
-    public static void fighting(Player p1, Player p2, List<Biological> monster) {
+    public static void fighting(Player p1, Player p2, List<Monster> monster) {
         Renderer renderer = new Renderer("开始战斗");
     }
 

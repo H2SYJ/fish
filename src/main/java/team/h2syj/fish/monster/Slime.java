@@ -5,7 +5,7 @@ import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.AttackCard;
 import team.h2syj.fish.core.Card.MagicCard;
 
-public class Slime extends Biological {
+public class Slime extends Monster {
     public Slime() {
         super(5);
         deck.add(new NormalAttackCard());

@@ -2,6 +2,7 @@ package team.h2syj.fish.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.player.Player;
 
 public interface WorldEvent {
@@ -11,11 +12,11 @@ public interface WorldEvent {
     }
 
     abstract class MonsterWorldEvent implements WorldEvent {
-        protected List<Biological> monster = new ArrayList<>();
+        protected List<Monster> monster = new ArrayList<>();
     }
 
     abstract class BossWorldEvent implements WorldEvent {
-        protected List<Biological> monster = new ArrayList<>();
+        protected List<Monster> monster = new ArrayList<>();
     }
 
     abstract class StoreWorldEvent implements WorldEvent {
