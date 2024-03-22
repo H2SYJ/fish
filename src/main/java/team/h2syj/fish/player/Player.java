@@ -2,6 +2,7 @@ package team.h2syj.fish.player;
 
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.AttackCard;
+import team.h2syj.fish.core.Controller;
 import team.h2syj.fish.core.Renderer;
 
 public class Player extends Biological {
@@ -16,6 +17,8 @@ public class Player extends Biological {
     @Override
     public void action() {
         Renderer renderer = new Renderer("开始行动");
+        new Controller("等待行动").next("", input -> {
+        });
     }
 
 

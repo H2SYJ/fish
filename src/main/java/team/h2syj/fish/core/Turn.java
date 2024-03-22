@@ -23,7 +23,7 @@ public class Turn {
             axis.add(p2);
         for (int i = 0; i < monsters.size(); i++) {
             Monster monster = monsters.get(i);
-            monster.setName(monster.getClass().getSimpleName() + (char) (i + 65));
+            monster.setName(monster.getClass().getSimpleName() + " " + (char) (i + 65));
             axis.add(monster);
         }
     }

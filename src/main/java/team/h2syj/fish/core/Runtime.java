@@ -39,11 +39,11 @@ public class Runtime {
     public static void fighting(Player p1, Player p2, List<Monster> monsters) {
         Renderer renderer = new Renderer("进入战斗");
         Turn turn = new Turn(p1, p2, monsters);
-        Biological item = null;
-        while ((item = turn.next()) != null && !turn.win() && !turn.lose()) {
+        do {
             renderer.print("行动轴：（当前回合）%s", turn);
-            item.action();
-        }
+            Biological biological = turn.next();
+            biological.action();
+        } while (!turn.win() && !turn.lose());
         if (turn.lose())
             Runtime.endGame();
     }
