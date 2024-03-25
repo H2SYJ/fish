@@ -3,6 +3,7 @@ package team.h2syj.fish.utils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +24,10 @@ public class BeanUtils {
                 if (child == null)
                     continue;
                 result.add(child);
+                if (child instanceof Collection<?> collection) {
+                    for (Object item : collection)
+                        result.addAll(loadAllObj(item));
+                }
 
                 Class<?> childClass = child.getClass();
                 if (childClass.isEnum())

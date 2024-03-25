@@ -29,7 +29,7 @@ public class Slime extends Monster {
         }
 
         @Override
-        public void execute(Biological self, List<Biological> target) {
+        public void process(Biological self, List<Biological> target) {
         }
     }
 

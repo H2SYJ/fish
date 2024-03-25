@@ -31,4 +31,8 @@ public class Controller {
         return this;
     }
 
+    public String getInput() {
+        return this.nextLine;
+    }
+
 }

@@ -2,6 +2,7 @@ package team.h2syj.fish.core;
 
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 import team.h2syj.fish.core.Biological.State;
 import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.player.Player;
@@ -9,11 +10,12 @@ import team.h2syj.fish.player.Player;
 /**
  * 战场
  */
+@Getter
 public class Battlefield {
     private final Player p1;
     private final Player p2;
     private final List<Monster> monsters;
-    private BattlefieldEventRegister register = new BattlefieldEventRegister();
+    private final BattlefieldEventRegister register = new BattlefieldEventRegister();
     private final Turn turn;
 
     public Battlefield(Player p1, Player p2, List<Monster> monsters) {
@@ -56,20 +58,8 @@ public class Battlefield {
         register.triggerEvent(clazz, args);
     }
 
-    public Player getP1() {
-        return p1;
-    }
-
-    public Player getP2() {
-        return p2;
-    }
-
-    public List<Monster> getMonsters() {
-        return monsters;
-    }
-
-    public Turn getTurn() {
-        return this.turn;
+    public List<Biological> getTarget(String target) {
+        return null;
     }
 
 }

@@ -8,6 +8,7 @@ import team.h2syj.fish.utils.Utils;
 /**
  * 卡组
  */
+@lombok.Data
 public class Deck {
     private final List<Card> cards = new ArrayList<>();
 

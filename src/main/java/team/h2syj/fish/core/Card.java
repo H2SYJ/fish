@@ -1,6 +1,9 @@
 package team.h2syj.fish.core;
 
 import java.util.List;
+import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
+import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent.Type;
+import team.h2syj.fish.core.Biological.State;
 import team.h2syj.fish.utils.DamageCalculator;
 
 /**
@@ -12,7 +15,19 @@ public interface Card {
 
     String desc();
 
-    void execute(Biological self, List<Biological> target);
+    default void execute(Biological self, List<Biological> target) {
+        Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
+        battlefield.triggerEvent(CardBattlefieldEvent.class, Type.使用卡牌之前, this, self, target);
+        this.process(self, target);
+        battlefield.triggerEvent(CardBattlefieldEvent.class, Type.使用卡牌之后, this, self, target);
+
+        for (Biological biological : target) {
+            if (biological.state == State.死亡)
+                battlefield.died(biological);
+        }
+    }
+
+    void process(Biological self, List<Biological> target);
 
     abstract class AbstractCard implements Card {
         @Override
@@ -31,7 +46,7 @@ public interface Card {
         public abstract double baseDamage();
 
         @Override
-        public void execute(Biological self, List<Biological> target) {
+        public void process(Biological self, List<Biological> target) {
             for (Biological biological : target) {
                 double damage = DamageCalculator.calculate(baseDamage(), self, biological);
                 biological.injuried(damage);

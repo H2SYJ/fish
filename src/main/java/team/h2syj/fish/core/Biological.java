@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import lombok.Getter;
 import team.h2syj.fish.buff.Buff;
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
@@ -13,6 +14,7 @@ import team.h2syj.fish.debuff.DeBuff;
 /**
  * 生物抽象类
  */
+@Getter
 public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefieldEvent, CardBattlefieldEvent {
     // 血量上限
     protected Data data = new Data();
@@ -35,10 +37,6 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
 
     public double hp() {
         return this.data.curHp;
-    }
-
-    public State getState() {
-        return state;
     }
 
     public List<Buff> getBuffs() {
@@ -122,6 +120,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     /**
      * 战斗状态
      */
+    @lombok.Data
     protected static class FightingState {
         int action;
         Deck deck; // 牌组
@@ -152,6 +151,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     /**
      * 生物数据
      */
+    @lombok.Data
     protected static class Data {
         double curHp; // 当前血量
         double hp; // 血量上限
