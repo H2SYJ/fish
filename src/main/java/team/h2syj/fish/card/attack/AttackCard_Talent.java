@@ -5,8 +5,9 @@ import java.util.List;
 import team.h2syj.fish.buff.Buff.DamageDownBuff;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.BuffCard;
+import team.h2syj.fish.core.TargetSelect.FriendlyTargetSelect;
 
-public class AttackCard_Talent extends BuffCard {
+public class AttackCard_Talent extends BuffCard implements FriendlyTargetSelect {
 
     final int baseDamage = 2;
     final int attachDamage = 2;
