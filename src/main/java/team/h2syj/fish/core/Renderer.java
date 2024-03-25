@@ -4,6 +4,10 @@ package team.h2syj.fish.core;
  * 渲染器
  */
 public class Renderer {
+
+    public Renderer() {
+    }
+
     public Renderer(String title) {
         System.out.printf("============%s============%n", title);
     }
@@ -49,4 +53,5 @@ public class Renderer {
         System.out.println();
         return this;
     }
+
 }

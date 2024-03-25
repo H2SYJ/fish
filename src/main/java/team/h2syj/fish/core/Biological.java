@@ -121,7 +121,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
      * 战斗状态
      */
     @lombok.Data
-    protected static class FightingState {
+    public static class FightingState {
         int action;
         Deck deck; // 牌组
         Deck curDeck = new Deck(); // 手牌
@@ -152,11 +152,15 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
      * 生物数据
      */
     @lombok.Data
-    protected static class Data {
+    public static class Data {
         double curHp; // 当前血量
         double hp; // 血量上限
         int action = 5; // 行动点上限
         int gold; // 金币
+
+        public void addGold(int gold) {
+            this.gold += gold;
+        }
     }
 
 }

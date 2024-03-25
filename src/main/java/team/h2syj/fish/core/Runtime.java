@@ -67,6 +67,7 @@ public class Runtime {
     private static void endGame() {
         Renderer renderer = new Renderer("游戏结束");
         renderer.println("啊哈！你输了！");
+        throw new GameOverException();
     }
 
     public static Optional<Battlefield> getBattlefield() {
@@ -75,6 +76,9 @@ public class Runtime {
 
     public static Player me() {
         return me;
+    }
+
+    public static class GameOverException extends RuntimeException {
     }
 
 }
