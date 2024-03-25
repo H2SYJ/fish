@@ -14,6 +14,7 @@ public interface TargetSelect {
      * 敌方选择器
      */
     interface EnemyTargetSelect extends TargetSelect {
+        @Override
         default Biological select() {
             Renderer renderer = new Renderer("选择目标");
             Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
@@ -40,10 +41,11 @@ public interface TargetSelect {
      * 友方选择器
      */
     interface FriendlyTargetSelect extends TargetSelect {
+        @Override
         default Biological select() {
             Renderer renderer = new Renderer("选择目标");
             Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
-            List<Biological> list = List.of(battlefield.getP1(), battlefield.getP2());
+            List<Biological> list = battlefield.getFriends();
             List<Choose> targetChooses = new ArrayList<>();
             AtomicReference<Biological> select = new AtomicReference<>();
             for (int j = 0; j < list.size(); j++) {
@@ -66,6 +68,7 @@ public interface TargetSelect {
      * 选择自身
      */
     interface SelfTargetSelect extends TargetSelect {
+        @Override
         default Biological select() {
             return Runtime.me();
         }

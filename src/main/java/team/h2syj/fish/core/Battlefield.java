@@ -1,5 +1,6 @@
 package team.h2syj.fish.core;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,6 +61,16 @@ public class Battlefield {
 
     public List<Biological> getTarget(String target) {
         return null;
+    }
+
+    public List<Biological> getFriends() {
+        List<Biological> friends = new ArrayList<>();
+        friends.add(p1);
+        if (p2 != null)
+            friends.add(p2);
+        // TODO 随从
+        // ...
+        return friends;
     }
 
 }
