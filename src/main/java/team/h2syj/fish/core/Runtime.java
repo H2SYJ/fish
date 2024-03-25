@@ -2,6 +2,7 @@ package team.h2syj.fish.core;
 
 import java.util.List;
 import java.util.Optional;
+
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
 import team.h2syj.fish.monster.Monster;
@@ -20,13 +21,12 @@ public class Runtime {
                 ██╔══╝  ██║╚════██║██╔══██║
                 ██║     ██║███████║██║  ██║
                 ╚═╝     ╚═╝╚══════╝╚═╝  ╚═╝
-                                
+
                 1）单人游戏
                 2）双人游戏
                 exit）退出
                 """);
-        new Controller()
-                .next("1", input -> startSingle())
+        new Controller().next("1", input -> startSingle())
                 .next("2", input -> System.out.println("等待实现"))
                 .next("exit", System.out::println);
     }

@@ -3,6 +3,7 @@ package team.h2syj.fish.core;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.player.Player;
 
@@ -31,7 +32,6 @@ public class Turn {
         axis.add(pop);
         return pop;
     }
-
 
     public LinkedList<Biological> getAxis() {
         return axis;

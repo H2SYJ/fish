@@ -2,6 +2,7 @@ package team.h2syj.fish.core;
 
 import java.util.Scanner;
 import java.util.function.Consumer;
+
 import lombok.Getter;
 
 /**

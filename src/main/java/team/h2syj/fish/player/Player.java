@@ -2,6 +2,7 @@ package team.h2syj.fish.player;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import team.h2syj.fish.core.Battlefield;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card;

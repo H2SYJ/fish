@@ -2,6 +2,7 @@ package team.h2syj.fish.core;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import lombok.Getter;
 import team.h2syj.fish.core.Biological.State;
 import team.h2syj.fish.monster.Monster;
@@ -51,7 +52,6 @@ public class Battlefield {
     public Biological next() {
         return turn.next();
     }
-
 
     public void triggerEvent(Class<? extends BattlefieldEvent> clazz, Object... args) {
         register.scan(this);

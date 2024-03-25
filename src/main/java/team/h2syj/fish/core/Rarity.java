@@ -5,12 +5,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.TYPE})
+@Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Rarity {
 
     /**
-     * 物品稀有等级
+     * 物品稀有等级 </br>
      * 暂定 1-3 级
      *
      * @return 物品稀有等级

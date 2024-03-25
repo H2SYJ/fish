@@ -1,6 +1,7 @@
 package team.h2syj.fish.monster;
 
 import java.util.List;
+
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.AttackCard;
 import team.h2syj.fish.core.Card.MagicCard;
@@ -15,7 +16,6 @@ public class Slime extends Monster {
         deck.add(new CuteCard());
         deck.add(new CuteCard());
     }
-
 
     public static class CuteCard extends MagicCard {
         @Override

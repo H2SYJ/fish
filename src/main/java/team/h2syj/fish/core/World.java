@@ -1,6 +1,7 @@
 package team.h2syj.fish.core;
 
 import java.util.LinkedList;
+
 import team.h2syj.fish.event.SlimeWorldEvent;
 import team.h2syj.fish.player.Player;
 
