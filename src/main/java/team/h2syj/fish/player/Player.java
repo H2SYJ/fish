@@ -1,10 +1,12 @@
 package team.h2syj.fish.player;
 
+import java.util.ArrayList;
 import java.util.List;
 import team.h2syj.fish.core.Battlefield;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card;
 import team.h2syj.fish.core.Card.AttackCard;
+import team.h2syj.fish.core.Choose;
 import team.h2syj.fish.core.Controller;
 import team.h2syj.fish.core.Deck;
 import team.h2syj.fish.core.Renderer;
@@ -25,9 +27,35 @@ public class Player extends Biological {
         Renderer renderer = new Renderer("开始行动");
         renderer.println("当前手牌");
         Deck curDeck = fightingState.getCurDeck();
+        int actionPoint = fightingState.getAction();
         List<Card> cards = curDeck.getCards();
+        List<Choose> chooses = new ArrayList<>();
         for (int i = 0; i < cards.size(); i++) {
-            renderer.print("%s）", i + 1).println(cards.get(i));
+            Card card = cards.get(i);
+            int cost = card.cost();
+            renderer.print("%s）", i + 1);
+            if (cost > actionPoint) {
+                renderer.print("（🚫行动点不足）");
+            } else {
+                chooses.add(new Choose(String.valueOf(i + 1), input -> {
+                    Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
+                    List<Monster> monsters = battlefield.getMonsters();
+                    List<Choose> targetChooses = new ArrayList<>();
+                    for (int j = 0; j < monsters.size(); j++) {
+                        Monster monster = monsters.get(j);
+                        renderer.print("%s）", j + 1).println(monster);
+                        targetChooses.add(new Choose(String.valueOf(j + 1), s -> card.execute(this, List.of(monster))));
+                    }
+                    Controller controller;
+                    do {
+                        controller = new Controller("选择目标");
+                        for (Choose choose : targetChooses) {
+                            controller.next(choose);
+                        }
+                    } while (!controller.isMatch());
+                }));
+            }
+            renderer.println(card);
         }
 
         if (state != State.正常) {
@@ -35,25 +63,14 @@ public class Player extends Biological {
             return;
         }
 
-        Controller controller = new Controller("等待行动");
-        for (int i = 0; i < cards.size(); i++) {
-            Card card = cards.get(i);
-            controller.next(String.valueOf(i + 1), input -> {
-                Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
-                List<Monster> monsters = battlefield.getMonsters();
-                for (int j = 0; j < monsters.size(); j++) {
-                    Monster monster = monsters.get(j);
-                    renderer.print("%s）", j + 1).println(monster);
-                }
-                Controller targetController = new Controller("选择目标");
-                for (int j = 0; j < monsters.size(); j++) {
-                    Monster monster = monsters.get(j);
-                    targetController.next(String.valueOf(j + 1), s -> card.execute(this, List.of(monster)));
-                }
-            });
-        }
+        Controller controller;
+        do {
+            controller = new Controller("等待行动");
+            for (Choose choose : chooses) {
+                controller.next(choose);
+            }
+        } while (!controller.isMatch());
     }
-
 
     public static class NormalAttackCard extends AttackCard {
         @Override

@@ -1,6 +1,7 @@
 package team.h2syj.fish.core;
 
 import java.util.List;
+
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent.Type;
 import team.h2syj.fish.core.Biological.State;
@@ -15,10 +16,19 @@ public interface Card {
 
     String desc();
 
+    default int cost() {
+        return 0;
+    }
+
     default void execute(Biological self, List<Biological> target) {
+        int cost = cost();
+        if (cost > self.fightingState.action)
+            throw new RuntimeException();
+
         Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
         battlefield.triggerEvent(CardBattlefieldEvent.class, Type.使用卡牌之前, this, self, target);
         this.process(self, target);
+        self.fightingState.modifyAction(-cost);
         battlefield.triggerEvent(CardBattlefieldEvent.class, Type.使用卡牌之后, this, self, target);
 
         for (Biological biological : target) {

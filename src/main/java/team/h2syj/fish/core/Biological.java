@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 import lombok.Getter;
 import team.h2syj.fish.buff.Buff;
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
@@ -69,12 +70,12 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     @Override
     public void process(BaseBattlefieldEvent.Type type) {
         switch (type) {
-            case 进入战斗 -> {
-                this.fightingState = new FightingState(this);
-            }
-            case 离开战斗 -> {
-                this.fightingState = null;
-            }
+        case 进入战斗 -> {
+            this.fightingState = new FightingState(this);
+        }
+        case 离开战斗 -> {
+            this.fightingState = null;
+        }
         }
     }
 
@@ -83,14 +84,14 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         if (this != target)
             return;
         switch (type) {
-            case 回合开始 -> {
-                // 回合开始恢复一点行动点
-                if (fightingState.action < data.action)
-                    fightingState.action++;
-                fightingState.gacha(); // 回合开始抽一张牌
-            }
-            case 回合结束 -> {
-            }
+        case 回合开始 -> {
+            // 回合开始恢复一点行动点
+            if (fightingState.action < data.action)
+                fightingState.modifyAction(1);
+            fightingState.gacha(); // 回合开始抽一张牌
+        }
+        case 回合结束 -> {
+        }
         }
     }
 
@@ -99,9 +100,9 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         if (this != self)
             return;
         switch (type) {
-            case 使用卡牌之前 -> {
-            }
-            case 使用卡牌之后 -> fightingState.useCard(card);
+        case 使用卡牌之前 -> {
+        }
+        case 使用卡牌之后 -> fightingState.useCard(card);
         }
     }
 
@@ -115,7 +116,6 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
 
         return String.join(SystemSetting.newline, hpContent, actionContent);
     }
-
 
     /**
      * 战斗状态
@@ -137,13 +137,16 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
             deck.gacha().ifPresentOrElse(curDeck::add, () -> {
                 deck = nextDeck;
                 nextDeck = new Deck();
-                gacha();
             });
         }
 
         public void useCard(Card card) {
             curDeck.remove(card);
             nextDeck.add(card);
+        }
+
+        public void modifyAction(int action) {
+            this.action += action;
         }
 
     }
@@ -158,7 +161,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         int action = 5; // 行动点上限
         int gold; // 金币
 
-        public void addGold(int gold) {
+        public void modifyGold(int gold) {
             this.gold += gold;
         }
     }
