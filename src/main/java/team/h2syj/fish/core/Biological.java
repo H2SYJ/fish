@@ -134,10 +134,16 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         }
 
         public void gacha() {
-            deck.gacha().ifPresentOrElse(curDeck::add, () -> {
-                (deck = nextDeck).gacha().ifPresent(curDeck::add);
-                nextDeck = new Deck();
-            });
+            gacha(1);
+        }
+
+        public void gacha(int num) {
+            for (int i = 0; i < num; i++) {
+                deck.gacha().ifPresentOrElse(curDeck::add, () -> {
+                    (deck = nextDeck).gacha().ifPresent(curDeck::add);
+                    nextDeck = new Deck();
+                });
+            }
         }
 
         public void useCard(Card card) {
