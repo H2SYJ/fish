@@ -72,6 +72,9 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         switch (type) {
         case 进入战斗 -> {
             this.fightingState = new FightingState(this);
+            for (int i = 0; i < 5; i++) {
+                this.fightingState.gacha();
+            }
         }
         case 离开战斗 -> {
             this.fightingState = null;
@@ -88,7 +91,9 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
             // 回合开始恢复一点行动点
             if (fightingState.action < data.action)
                 fightingState.modifyAction(1);
-            fightingState.gacha(); // 回合开始抽一张牌
+            for (int i = 0; i < 2; i++) {
+                fightingState.gacha();
+            }
         }
         case 回合结束 -> {
         }
