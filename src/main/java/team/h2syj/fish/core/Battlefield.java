@@ -13,6 +13,7 @@ public class Battlefield {
     private final Player p1;
     private final Player p2;
     private final List<Monster> monsters;
+    private BattlefieldEventRegister register = new BattlefieldEventRegister();
     private final Turn turn;
 
     public Battlefield(Player p1, Player p2, List<Monster> monsters) {
@@ -20,6 +21,8 @@ public class Battlefield {
         this.p2 = p2;
         this.monsters = monsters;
         this.turn = new Turn(p1, p2, monsters);
+        // 事件注册器扫描战场将所有事件注册进去
+        this.register.scan(this);
     }
 
     public Battlefield died(Biological biological) {
@@ -39,16 +42,30 @@ public class Battlefield {
     public boolean lose() {
         assert p1 != null;
         if (p2 != null)
-            return p1.state == State.死亡 && p2.state == State.死亡;
-        return p1.state == State.死亡;
+            return p1.getState() == State.死亡 && p2.getState() == State.死亡;
+        return p1.getState() == State.死亡;
     }
 
     public Biological next() {
-        Biological next = turn.next();
-        if (next != null) {
-            // 发送回合开始事件
-        }
-        return next;
+        return turn.next();
+    }
+
+
+    public void triggerEvent(Class<? extends BattlefieldEvent> clazz, Object... args) {
+        register.scan(this);
+        register.triggerEvent(clazz, args);
+    }
+
+    public Player getP1() {
+        return p1;
+    }
+
+    public Player getP2() {
+        return p2;
+    }
+
+    public List<Monster> getMonsters() {
+        return monsters;
     }
 
     public Turn getTurn() {

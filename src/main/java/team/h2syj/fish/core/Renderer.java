@@ -45,4 +45,8 @@ public class Renderer {
         return this;
     }
 
+    public Renderer println() {
+        System.out.println();
+        return this;
+    }
 }

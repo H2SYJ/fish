@@ -9,5 +9,4 @@ public class SystemSetting {
      * 双人游戏：1.5倍
      */
     public static double difficulty = 1d;
-    public static Biological me = null;
 }
