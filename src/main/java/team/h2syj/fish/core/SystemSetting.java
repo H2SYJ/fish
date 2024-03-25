@@ -14,4 +14,5 @@ public class SystemSetting {
      * 是否为p1
      */
     public static boolean isPlayer1 = true;
+    public static Biological me = null;
 }

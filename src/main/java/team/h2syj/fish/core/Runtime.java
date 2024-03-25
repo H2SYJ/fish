@@ -27,6 +27,7 @@ public class Runtime {
 
     public static void startSingle() {
         Player player = new Player();
+        SystemSetting.me = player;
         System.out.println(String.format("""
                 初始卡牌：
                 %s
@@ -38,13 +39,13 @@ public class Runtime {
 
     public static void fighting(Player p1, Player p2, List<Monster> monsters) {
         Renderer renderer = new Renderer("进入战斗");
-        Turn turn = new Turn(p1, p2, monsters);
+        Battlefield battlefield = new Battlefield(p1, p2, monsters);
         do {
-            renderer.print("行动轴：（当前回合）%s", turn);
-            Biological biological = turn.next();
+            renderer.print("行动轴：（当前回合）%s", battlefield.getTurn());
+            Biological biological = battlefield.next();
             biological.action();
-        } while (!turn.win() && !turn.lose());
-        if (turn.lose())
+        } while (!battlefield.win() && !battlefield.lose());
+        if (battlefield.lose())
             Runtime.endGame();
     }
 

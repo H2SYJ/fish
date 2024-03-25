@@ -7,6 +7,14 @@ import java.util.List;
 public class Deck {
     private final List<Card> cards = new ArrayList<>();
 
+    public Deck temp() {
+        Deck deck = new Deck();
+        for (Card card : cards) {
+            deck.add(card);
+        }
+        return deck;
+    }
+
     public Deck add(Card card) {
         this.cards.add(card);
         return this;
