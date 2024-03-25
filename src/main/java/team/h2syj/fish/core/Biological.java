@@ -2,6 +2,7 @@ package team.h2syj.fish.core;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import team.h2syj.fish.buff.Buff;
 import team.h2syj.fish.debuff.DeBuff;
 
@@ -26,6 +27,10 @@ public abstract class Biological {
     }
 
     public abstract void action();
+
+    public double hp() {
+        return hp;
+    }
 
     public List<Buff> getBuffs() {
         return buffs;

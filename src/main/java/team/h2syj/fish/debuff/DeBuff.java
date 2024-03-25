@@ -1,5 +1,7 @@
 package team.h2syj.fish.debuff;
 
+import team.h2syj.fish.core.Biological;
+
 public interface DeBuff {
     String name();
 
@@ -30,7 +32,8 @@ public interface DeBuff {
         public DamageUpDeBuff(int turn) {
             super(turn);
         }
-        public abstract double up(double damage);
+
+        public abstract double up(double damage, Biological attacker, Biological target);
     }
 
     // 造成的伤害降低
@@ -38,7 +41,8 @@ public interface DeBuff {
         public DamageDownDeBuff(int turn) {
             super(turn);
         }
-        public abstract double down(double damage);
+
+        public abstract double down(double damage, Biological attacker, Biological target);
     }
 
     // 数值提升

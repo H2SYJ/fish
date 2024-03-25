@@ -33,7 +33,7 @@ public interface Buff {
             super(turn);
         }
 
-        public abstract double up(double damage);
+        public abstract double up(double damage, Biological attacker, Biological target);
     }
 
     // 受到的伤害降低
@@ -42,7 +42,7 @@ public interface Buff {
             super(turn);
         }
 
-        public abstract double down(double damage);
+        public abstract double down(double damage, Biological attacker, Biological target);
     }
 
     // 数值提升

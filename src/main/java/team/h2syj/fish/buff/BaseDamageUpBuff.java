@@ -1,6 +1,7 @@
 package team.h2syj.fish.buff;
 
 import team.h2syj.fish.buff.Buff.DamageUpBuff;
+import team.h2syj.fish.core.Biological;
 
 public class BaseDamageUpBuff extends DamageUpBuff {
     public BaseDamageUpBuff() {
@@ -18,7 +19,7 @@ public class BaseDamageUpBuff extends DamageUpBuff {
     }
 
     @Override
-    public double up(double damage) {
+    public double up(double damage, Biological attacker, Biological target) {
         return damage + 1;
     }
 }

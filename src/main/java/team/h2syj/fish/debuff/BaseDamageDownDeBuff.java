@@ -1,5 +1,6 @@
 package team.h2syj.fish.debuff;
 
+import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.debuff.DeBuff.DamageDownDeBuff;
 
 public class BaseDamageDownDeBuff extends DamageDownDeBuff {
@@ -18,7 +19,7 @@ public class BaseDamageDownDeBuff extends DamageDownDeBuff {
     }
 
     @Override
-    public double down(double damage) {
+    public double down(double damage, Biological attacker, Biological target) {
         return damage - 1;
     }
 }
