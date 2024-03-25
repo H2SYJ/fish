@@ -1,13 +1,9 @@
 package team.h2syj.fish.debuff;
 
 import team.h2syj.fish.core.Biological;
+import team.h2syj.fish.core.Effect;
 
-public interface DeBuff {
-    String name();
-
-    String desc();
-
-    int turn();
+public interface DeBuff extends Effect {
 
     abstract class AbstractDeBuff implements DeBuff {
         protected int turn;

@@ -94,6 +94,9 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
             fightingState.gacha(2); // 回合开始抽一张牌
         }
         case 回合结束 -> {
+            // 回合型buff回合数-1
+            getBuffs().removeIf(Buff::diffTurn);
+            getDeBuffs().removeIf(DeBuff::diffTurn);
         }
         }
     }

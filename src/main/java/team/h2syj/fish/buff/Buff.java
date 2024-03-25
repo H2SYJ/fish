@@ -1,13 +1,9 @@
 package team.h2syj.fish.buff;
 
 import team.h2syj.fish.core.Biological;
+import team.h2syj.fish.core.Effect;
 
-public interface Buff {
-    String name();
-
-    String desc();
-
-    int turn();
+public interface Buff extends Effect {
 
     abstract class AbstractBuff implements Buff {
         protected int turn;
