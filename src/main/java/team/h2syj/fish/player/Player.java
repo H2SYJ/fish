@@ -3,7 +3,6 @@ package team.h2syj.fish.player;
 import java.util.ArrayList;
 import java.util.List;
 
-import team.h2syj.fish.core.Battlefield;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card;
 import team.h2syj.fish.core.Card.AttackCard;
@@ -11,8 +10,7 @@ import team.h2syj.fish.core.Choose;
 import team.h2syj.fish.core.Controller;
 import team.h2syj.fish.core.Deck;
 import team.h2syj.fish.core.Renderer;
-import team.h2syj.fish.core.Runtime;
-import team.h2syj.fish.monster.Monster;
+import team.h2syj.fish.core.TargetSelect;
 
 public class Player extends Biological {
     public Player() {
@@ -39,21 +37,10 @@ public class Player extends Biological {
                 renderer.print("（🚫行动点不足）");
             } else {
                 chooses.add(new Choose(String.valueOf(i + 1), input -> {
-                    Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
-                    List<Monster> monsters = battlefield.getMonsters();
-                    List<Choose> targetChooses = new ArrayList<>();
-                    for (int j = 0; j < monsters.size(); j++) {
-                        Monster monster = monsters.get(j);
-                        renderer.print("%s）", j + 1).println(monster);
-                        targetChooses.add(new Choose(String.valueOf(j + 1), s -> card.execute(this, List.of(monster))));
+                    if (card instanceof TargetSelect targetSelect) {
+                        Biological target = targetSelect.select();
+                        card.execute(this, List.of(target));
                     }
-                    Controller controller;
-                    do {
-                        controller = new Controller("选择目标");
-                        for (Choose choose : targetChooses) {
-                            controller.next(choose);
-                        }
-                    } while (!controller.isMatch());
                 }));
             }
             renderer.println(card);

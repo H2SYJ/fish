@@ -5,6 +5,8 @@ import java.util.List;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent.Type;
 import team.h2syj.fish.core.Biological.State;
+import team.h2syj.fish.core.TargetSelect.EnemyTargetSelect;
+import team.h2syj.fish.core.TargetSelect.FriendlyTargetSelect;
 import team.h2syj.fish.utils.DamageCalculator;
 
 /**
@@ -46,13 +48,13 @@ public interface Card {
         }
     }
 
-    abstract class BuffCard extends AbstractCard {
+    abstract class BuffCard extends AbstractCard implements FriendlyTargetSelect {
     }
 
-    abstract class DeBuffCard extends AbstractCard {
+    abstract class DeBuffCard extends AbstractCard implements EnemyTargetSelect {
     }
 
-    abstract class AttackCard extends AbstractCard {
+    abstract class AttackCard extends AbstractCard implements EnemyTargetSelect {
         public abstract double baseDamage();
 
         @Override
@@ -64,7 +66,7 @@ public interface Card {
         }
     }
 
-    abstract class MagicCard extends AbstractCard {
+    abstract class MagicCard extends AbstractCard implements FriendlyTargetSelect {
     }
 
 }
