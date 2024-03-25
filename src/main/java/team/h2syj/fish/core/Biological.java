@@ -5,6 +5,9 @@ import java.util.List;
 import team.h2syj.fish.buff.Buff;
 import team.h2syj.fish.debuff.DeBuff;
 
+/**
+ * 生物抽象类
+ */
 public abstract class Biological {
     protected double hp;
     protected State state = State.正常;

@@ -3,6 +3,9 @@ package team.h2syj.fish.core;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+/**
+ * 控制器：用户输入做出的选择
+ */
 public class Controller {
     private static final Scanner scanner = new Scanner(System.in);
     private final String nextLine;

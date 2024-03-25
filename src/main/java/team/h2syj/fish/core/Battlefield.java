@@ -6,6 +6,9 @@ import team.h2syj.fish.core.Biological.State;
 import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.player.Player;
 
+/**
+ * 战场
+ */
 public class Battlefield {
     private final Player p1;
     private final Player p2;
