@@ -3,6 +3,9 @@ package team.h2syj.fish.core;
 import java.util.List;
 import team.h2syj.fish.utils.DamageCalculator;
 
+/**
+ * 卡牌
+ */
 public interface Card {
 
     String name();

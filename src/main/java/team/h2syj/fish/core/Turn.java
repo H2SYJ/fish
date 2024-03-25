@@ -6,8 +6,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.player.Player;
 
+/**
+ * 管理回合的类
+ */
 public class Turn {
+    // 回合数
     private final AtomicInteger turnNum = new AtomicInteger();
+    // 行动轴
     private final LinkedList<Biological> axis = new LinkedList<>();
 
     public Turn(Player p1, Player p2, List<Monster> monsters) {

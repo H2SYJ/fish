@@ -5,6 +5,9 @@ import java.util.List;
 import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.player.Player;
 
+/**
+ * 世界事件
+ */
 public interface WorldEvent {
     void join(Player p1, Player p2);
 

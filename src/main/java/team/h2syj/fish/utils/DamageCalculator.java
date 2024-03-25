@@ -34,7 +34,7 @@ public class DamageCalculator {
         // 目标DeBuff
         List<DeBuff> targetDeBuffs = target.getDeBuffs();
         for (DeBuff targetBuff : targetDeBuffs) {
-            if (targetBuff instanceof DamageUpDeBuff buff) // 收到伤害提升DeBuff
+            if (targetBuff instanceof DamageUpDeBuff buff) // 受到伤害提升DeBuff
                 damage = buff.up(damage);
         }
         return damage;
