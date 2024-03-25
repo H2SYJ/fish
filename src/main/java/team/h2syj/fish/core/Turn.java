@@ -42,7 +42,7 @@ public class Turn {
         StringBuilder builder = new StringBuilder();
         for (Biological biological : axis) {
             String name = "";
-            if (biological == SystemSetting.me && SystemSetting.isPlayer1)
+            if (biological == SystemSetting.me)
                 name = "你";
             else if (biological instanceof Player)
                 name = "玩家";
