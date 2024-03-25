@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import lombok.Getter;
+import lombok.Setter;
 import team.h2syj.fish.buff.Buff;
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
@@ -17,7 +18,8 @@ import team.h2syj.fish.debuff.DeBuff;
  */
 @Getter
 public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefieldEvent, CardBattlefieldEvent {
-    // 血量上限
+    @Setter
+    protected String name;
     protected Data data = new Data();
     protected State state = State.正常;
     protected FightingState fightingState;
@@ -171,6 +173,11 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         public void modifyGold(int gold) {
             this.gold += gold;
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s（%s/%s）", name, data.getCurHp(), data.getHp());
     }
 
 }

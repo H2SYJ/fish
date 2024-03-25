@@ -3,6 +3,7 @@ package team.h2syj.fish.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import team.h2syj.fish.card.magic.MagicCard_Strategize;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card;
 import team.h2syj.fish.core.Card.AttackCard;
@@ -19,6 +20,7 @@ public class Player extends Biological {
         deck.add(new NormalAttackCard());
         deck.add(new NormalAttackCard());
         deck.add(new NormalAttackCard());
+        deck.add(new MagicCard_Strategize());
     }
 
     @Override

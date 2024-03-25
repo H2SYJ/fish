@@ -4,8 +4,9 @@ import java.util.List;
 
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.MagicCard;
+import team.h2syj.fish.core.TargetSelect.SelfTargetSelect;
 
-public class MagicCard_Strategize extends MagicCard {
+public class MagicCard_Strategize extends MagicCard implements SelfTargetSelect {
 
     @Override
     public String name() {

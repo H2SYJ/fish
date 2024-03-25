@@ -66,7 +66,7 @@ public interface Card {
         }
     }
 
-    abstract class MagicCard extends AbstractCard implements FriendlyTargetSelect {
+    abstract class MagicCard extends AbstractCard {
     }
 
 }

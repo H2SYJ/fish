@@ -43,7 +43,7 @@ public class Turn {
         for (Biological biological : axis) {
             String name = "";
             if (biological == Runtime.me())
-                name = "你";
+                name = "我";
             else if (biological instanceof Player)
                 name = "玩家";
             else if (biological instanceof Monster monster)

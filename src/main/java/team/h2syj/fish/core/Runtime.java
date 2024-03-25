@@ -33,6 +33,7 @@ public class Runtime {
 
     public static void startSingle() {
         Player player = new Player();
+        player.setName("我");
         me = player;
         System.out.println(String.format("""
                 初始卡牌：
