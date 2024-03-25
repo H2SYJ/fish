@@ -20,6 +20,6 @@ public class BaseDamageUpBuff extends DamageUpBuff {
 
     @Override
     public double up(double damage, Biological attacker, Biological target) {
-        return damage + 1;
+        return +1;
     }
 }
