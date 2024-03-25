@@ -41,7 +41,7 @@ public class Runtime {
         Renderer renderer = new Renderer("进入战斗");
         Battlefield battlefield = new Battlefield(p1, p2, monsters);
         do {
-            renderer.print("行动轴：（当前回合）%s", battlefield.getTurn());
+            renderer.println("行动轴：（当前回合）%s", battlefield.getTurn());
             Biological biological = battlefield.next();
             biological.action();
         } while (!battlefield.win() && !battlefield.lose());
@@ -51,7 +51,7 @@ public class Runtime {
 
     private static void endGame() {
         Renderer renderer = new Renderer("游戏结束");
-        renderer.print("啊哈！你输了！");
+        renderer.println("啊哈！你输了！");
     }
 
 }
