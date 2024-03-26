@@ -2,6 +2,8 @@ package team.h2syj.fish.debuff.turnBefore;
 
 import lombok.Setter;
 import team.h2syj.fish.core.Biological;
+import team.h2syj.fish.core.Renderer;
+import team.h2syj.fish.core.Renderer.ColorList;
 import team.h2syj.fish.debuff.DeBuff.TurnBeforeDeBuff;
 
 public class TurnBeforeDeBuff_Burn extends TurnBeforeDeBuff {
@@ -27,6 +29,10 @@ public class TurnBeforeDeBuff_Burn extends TurnBeforeDeBuff {
     @Override
     public void execute(Biological target) {
         target.injuried(damage);
+        new Renderer().newLine()
+                .color(ColorList.red_cochineal)
+                .print("%s受到%d点火属性持续伤害，%s", target.getName(), damage, target.hpContent())
+                .end();
     }
 
 }

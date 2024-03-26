@@ -40,8 +40,12 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
 
     public abstract void action();
 
-    public double hp() {
+    public double curHp() {
         return this.data.curHp;
+    }
+
+    public double maxHp() {
+        return this.data.hp;
     }
 
     public List<Buff> getBuffs() {
@@ -129,14 +133,19 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     }
 
     public String getStateString() {
-        int len = (int) (data.curHp / data.hp * 20);
-        String hpBar = IntStream.range(0, 20).mapToObj(i -> i < len ? "|" : "-").collect(Collectors.joining());
-        String hpContent = String.format("血量（%s/%s）：(%s)", data.curHp, data.hp, hpBar);
+        String hpContent = hpContent();
 
         String actionBar = IntStream.range(0, fightingState.action).mapToObj(i -> "※").collect(Collectors.joining());
         String actionContent = String.format("行动点（%s/%s）：%s", fightingState.action, data.action, actionBar);
 
         return String.join(SystemSetting.newline, hpContent, actionContent);
+    }
+
+    public String hpContent() {
+        int len = (int) (data.curHp / data.hp * 20);
+        String hpBar = IntStream.range(0, 20).mapToObj(i -> i < len ? "|" : "-").collect(Collectors.joining());
+        String hpContent = String.format("血量（%s/%s）：(%s)", data.curHp, data.hp, hpBar);
+        return hpContent;
     }
 
     /**
