@@ -21,7 +21,7 @@ public class AttackCard_安神秘法 extends AttackCard implements EnemyTargetSe
 
     @Override
     public int cost() {
-        return 1;
+        return 2;
     }
 
     @Override
