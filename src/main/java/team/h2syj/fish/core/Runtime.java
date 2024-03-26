@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
-import team.h2syj.fish.core.Renderer.ColorList;
 import team.h2syj.fish.player.Player;
 import team.h2syj.fish.utils.CardUtils;
 
@@ -47,17 +46,16 @@ public class Runtime {
     }
 
     public static void fighting(Player p1, Player p2, List<Biological> monsters) {
+        Renderer.eraseScreen();
         Renderer renderer = new Renderer("进入战斗");
         battlefield = new Battlefield(p1, p2, monsters);
         battlefield.triggerEvent(BaseBattlefieldEvent.class, BaseBattlefieldEvent.Type.进入战斗);
         do {
             renderer.print("行动轴：（当前回合）%s", battlefield.getTurn()).end();
+            renderer.newLine().end();
             Biological biological = battlefield.next();
             battlefield.triggerEvent(TurnBattlefieldEvent.class, TurnBattlefieldEvent.Type.回合开始, biological);
-            if (biological == me)
-                renderer.newLine().color(ColorList.green_spring).print(biological.getStateString()).end();
             biological.action();
-            // 宣布回合结束
             battlefield.triggerEvent(TurnBattlefieldEvent.class, TurnBattlefieldEvent.Type.回合结束, biological);
         } while (!battlefield.win() && !battlefield.lose());
         if (battlefield.lose())

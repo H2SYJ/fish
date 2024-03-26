@@ -13,6 +13,7 @@ import team.h2syj.fish.core.Renderer.ColorList;
 import team.h2syj.fish.core.TargetSelect.EnemyTargetSelect;
 import team.h2syj.fish.core.TargetSelect.FriendlyTargetSelect;
 import team.h2syj.fish.core.TargetSelect.SelfTargetSelect;
+import team.h2syj.fish.utils.CardUtils;
 import team.h2syj.fish.utils.Utils;
 
 public class FightingAI {
@@ -26,7 +27,7 @@ public class FightingAI {
         this.self = self;
         this.friends = friends;
         this.enemy = enemy;
-        this.renderer = new Renderer(String.format("%s 开始行动", self.getName()));
+        this.renderer = new Renderer(String.format("%s 回合开始", self.getName()));
     }
 
     public void action() {
@@ -56,12 +57,13 @@ public class FightingAI {
                 break; // 使用了攻击卡就退出
             break; // 没有一张卡可以用
         }
+        new Renderer(String.format("%s 回合结束", self.getName()));
     }
 
     public void execute(Card card) {
         List<Biological> targetList = getTargetList(card);
         for (Biological biological : targetList) {
-            renderer.print("对 %s 目标使用 %s", biological.getName(), card).end();
+            renderer.print("对 %s 使用 ", biological.getName()).color(CardUtils.getCardColor(card)).print(card).end();
         }
         card.execute(self, targetList);
     }

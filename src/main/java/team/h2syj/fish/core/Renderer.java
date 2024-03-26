@@ -33,6 +33,10 @@ public class Renderer {
         return new Line(obj.toString());
     }
 
+    public static void eraseScreen() {
+        System.out.println(Ansi.ansi().eraseScreen());
+    }
+
     public Renderer slowPrintln(long time, String template, Object... args) {
         if (template == null)
             return this;

@@ -38,7 +38,9 @@ public class Player extends Biological {
 
     @Override
     public void action() {
-        Renderer renderer = new Renderer("开始行动");
+        Renderer renderer = new Renderer("回合开始");
+        renderer.newLine().color(ColorList.green_spring).print(this.getStateString()).end();
+
         AtomicBoolean continues = new AtomicBoolean(false);
         do {
             renderer.print("当前手牌").end();
@@ -78,6 +80,7 @@ public class Player extends Biological {
                 }
             } while (!controller.isMatch());
         } while (continues.get());
+        new Renderer("回合结束");
     }
 
     @Rarity(Rarity.normal)
