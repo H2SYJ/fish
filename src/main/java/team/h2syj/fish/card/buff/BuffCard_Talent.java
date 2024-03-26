@@ -2,7 +2,7 @@ package team.h2syj.fish.card.buff;
 
 import java.util.List;
 
-import team.h2syj.fish.buff.Buff.DamageDownBuff;
+import team.h2syj.fish.buff.Buff.DamageUpBuff;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.BuffCard;
 import team.h2syj.fish.core.TargetSelect.FriendlyTargetSelect;
@@ -32,7 +32,7 @@ public class BuffCard_Talent extends BuffCard implements FriendlyTargetSelect {
         self.addBuff(new Buff_AttackCard_Talent());
     }
 
-    public class Buff_AttackCard_Talent extends DamageDownBuff {
+    public class Buff_AttackCard_Talent extends DamageUpBuff {
         public Buff_AttackCard_Talent() {
             super(1);
         }
@@ -48,7 +48,7 @@ public class BuffCard_Talent extends BuffCard implements FriendlyTargetSelect {
         }
 
         @Override
-        public double down(double damage, Biological attacker, Biological target) {
+        public double up(double damage, Biological attacker, Biological target) {
             if (attacker.getFightingState().getAction() % 2 == 0)
                 return baseDamage + attachDamage;
             return baseDamage;
