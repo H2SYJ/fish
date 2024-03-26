@@ -59,4 +59,13 @@ public interface Buff extends Effect {
         public abstract void execute(Biological target);
     }
 
+    // 施放攻击时
+    abstract class AttackBeforeBuff extends AbstractBuff {
+        public AttackBeforeBuff(int turn) {
+            super(turn);
+        }
+
+        public abstract void execute(Biological attacker, Biological target);
+    }
+
 }

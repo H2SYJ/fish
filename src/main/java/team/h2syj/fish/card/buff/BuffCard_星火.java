@@ -2,7 +2,7 @@ package team.h2syj.fish.card.buff;
 
 import java.util.List;
 
-import team.h2syj.fish.buff.Buff.DamageUpBuff;
+import team.h2syj.fish.buff.Buff.AttackBeforeBuff;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.BuffCard;
 import team.h2syj.fish.core.Rarity;
@@ -36,7 +36,7 @@ public class BuffCard_星火 extends BuffCard implements SelfTargetSelect {
         self.addBuff(new Buff_星火());
     }
 
-    public class Buff_星火 extends DamageUpBuff {
+    public class Buff_星火 extends AttackBeforeBuff {
         public Buff_星火() {
             super(Utils.INFINITE);
         }
@@ -52,12 +52,11 @@ public class BuffCard_星火 extends BuffCard implements SelfTargetSelect {
         }
 
         @Override
-        public double up(double damage, Biological attacker, Biological target) {
+        public void execute(Biological attacker, Biological target) {
             int random = Utils.random(0, 1);
             if (random == 1) {
                 target.addDeBuff(new TurnBeforeDeBuff_灼烧(2, 3));
             }
-            return 0;
         }
     }
 
