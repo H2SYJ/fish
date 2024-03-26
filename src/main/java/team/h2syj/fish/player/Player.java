@@ -2,6 +2,7 @@ package team.h2syj.fish.player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import team.h2syj.fish.card.buff.BuffCard_Talent;
 import team.h2syj.fish.card.magic.MagicCard_Strategize;
@@ -32,40 +33,44 @@ public class Player extends Biological {
     @Override
     public void action() {
         Renderer renderer = new Renderer("开始行动");
-        renderer.println("当前手牌");
-        Deck curDeck = fightingState.getCurDeck();
-        int actionPoint = fightingState.getAction();
-        List<Card> cards = curDeck.getCards();
-        List<Choose> chooses = new ArrayList<>();
-        for (int i = 0; i < cards.size(); i++) {
-            Card card = cards.get(i);
-            int cost = card.cost();
-            renderer.print("%s）", i + 1);
-            if (cost > actionPoint) {
-                renderer.print("（🚫行动点不足）");
-            } else {
-                chooses.add(new Choose(String.valueOf(i + 1), input -> {
-                    if (card instanceof TargetSelect targetSelect) {
-                        Biological target = targetSelect.select();
-                        card.execute(this, List.of(target));
-                    }
-                }));
-            }
-            renderer.println(card);
-        }
-
-        if (state != State.正常) {
-            renderer.println("你当前无法行动");
-            return;
-        }
-
-        Controller controller;
+        AtomicBoolean continues = new AtomicBoolean(false);
         do {
-            controller = new Controller("等待行动");
-            for (Choose choose : chooses) {
-                controller.next(choose);
+            renderer.println("当前手牌");
+            Deck curDeck = fightingState.getCurDeck();
+            int actionPoint = fightingState.getAction();
+            List<Card> cards = curDeck.getCards();
+            List<Choose> chooses = new ArrayList<>();
+            for (int i = 0; i < cards.size(); i++) {
+                Card card = cards.get(i);
+                int cost = card.cost();
+                renderer.print("%s）", i + 1);
+                if (cost > actionPoint) {
+                    renderer.print("（🚫行动点不足）");
+                } else {
+                    chooses.add(new Choose(String.valueOf(i + 1), input -> {
+                        if (card instanceof TargetSelect targetSelect) {
+                            Biological target = targetSelect.select();
+                            card.execute(this, List.of(target));
+                            continues.set(card.cost() > 0); // 消耗行动点的卡不结束回合
+                        }
+                    }));
+                }
+                renderer.println(card);
             }
-        } while (!controller.isMatch());
+
+            if (state != State.正常) {
+                renderer.println("你当前无法行动");
+                return;
+            }
+
+            Controller controller;
+            do {
+                controller = new Controller("等待行动");
+                for (Choose choose : chooses) {
+                    controller.next(choose);
+                }
+            } while (!controller.isMatch());
+        } while (continues.get());
     }
 
     public static class NormalAttackCard extends AttackCard {
