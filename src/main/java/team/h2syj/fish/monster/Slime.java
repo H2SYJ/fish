@@ -5,6 +5,7 @@ import team.h2syj.fish.core.Card.AttackCard;
 public class Slime extends Monster {
     public Slime() {
         super(5);
+        setName("史莱姆");
         deck.add(new NormalAttackCard());
         deck.add(new NormalAttackCard());
         deck.add(new NormalAttackCard());
