@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import team.h2syj.fish.core.Biological.FightingState;
+import team.h2syj.fish.core.Biological.State;
 import team.h2syj.fish.core.Card.AttackCard;
 import team.h2syj.fish.core.Card.BuffCard;
 import team.h2syj.fish.core.Card.DeBuffCard;
@@ -28,6 +29,10 @@ public class FightingAI {
     }
 
     public void action() {
+        if (self.state != State.正常) {
+            renderer.println("暂时无法行动");
+            return;
+        }
         FightingState fightingState = self.fightingState;
         List<Card> list;
         Optional<Card> optCard;
