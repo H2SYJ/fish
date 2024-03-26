@@ -35,6 +35,13 @@ public interface Treasure {
         }
     }
 
+    /**
+     * 从所有卡牌中获取指定数量个随机卡牌返回
+     * 
+     * @param rarity 卡牌的稀有等级
+     * @param count  卡牌数量
+     * @return 随机List
+     */
     static List<Card> getCards(int rarity, int count) {
         List<Class<?>> list = CardTreasure.cards.getOrDefault(rarity, List.of());
         return IntStream.range(0, count)
