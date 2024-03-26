@@ -13,6 +13,11 @@ public class Slime extends Monster {
         deck.add(new NormalAttackCard());
         deck.add(new NormalAttackCard());
         deck.add(new NormalAttackCard());
+        deck.add(new NormalAttackCard());
+        deck.add(new NormalAttackCard());
+        deck.add(new NormalAttackCard());
+        deck.add(new NormalAttackCard());
+        deck.add(new NormalAttackCard());
         deck.add(new CuteCard());
         deck.add(new CuteCard());
         deck.add(new CuteCard());
