@@ -25,8 +25,8 @@ public class TurnBeforeDeBuff_Burn extends TurnBeforeDeBuff {
     }
 
     @Override
-    public void execute(Biological attacker) {
-        attacker.injuried(damage);
+    public void execute(Biological target) {
+        target.injuried(damage);
     }
 
 }

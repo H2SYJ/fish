@@ -97,11 +97,11 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         case 回合开始 -> {
             for (Buff item : getBuffs()) {
                 if (item instanceof TurnBeforeBuff buff)
-                    buff.execute(target);
+                    buff.execute(this);
             }
             for (DeBuff item : getDeBuffs()) {
                 if (item instanceof TurnBeforeDeBuff buff)
-                    buff.execute(target);
+                    buff.execute(this);
             }
 
             // 回合开始恢复一点行动点

@@ -56,7 +56,7 @@ public interface Buff extends Effect {
             super(turn);
         }
 
-        public abstract void execute(Biological attacker);
+        public abstract void execute(Biological target);
     }
 
 }

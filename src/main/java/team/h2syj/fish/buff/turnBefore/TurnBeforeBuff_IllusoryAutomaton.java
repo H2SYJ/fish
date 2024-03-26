@@ -21,8 +21,8 @@ public class TurnBeforeBuff_IllusoryAutomaton extends TurnBeforeBuff {
     }
 
     @Override
-    public void execute(Biological attacker) {
-        attacker.recover(attacker.hp() * 0.2);
+    public void execute(Biological target) {
+        target.recover(target.hp() * 0.2);
     }
 
 }
