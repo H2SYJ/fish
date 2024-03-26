@@ -36,7 +36,7 @@ public class FightingAI {
         FightingState fightingState = self.fightingState;
         List<Card> list;
         Optional<Card> optCard;
-        do {
+        while (true) {
             list = getUsedCardList(fightingState);
             // 优先挂debuff
             (optCard = deBuffCard(list)).ifPresent(this::execute);
@@ -53,10 +53,9 @@ public class FightingAI {
             // 攻击
             (optCard = attackCard(list)).ifPresent(this::execute);
             if (optCard.isPresent())
-                continue;
-            // 如果使用的卡不为空并且消耗的费用大于0则继续行动
-            // 费用大于0的代表行动卡，行动卡不结束回合
-        } while (optCard.isPresent() && optCard.get().cost() > 0);
+                break; // 使用了攻击卡就退出
+            break; // 没有一张卡可以用
+        }
     }
 
     public void execute(Card card) {

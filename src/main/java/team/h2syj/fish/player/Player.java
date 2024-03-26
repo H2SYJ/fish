@@ -51,7 +51,7 @@ public class Player extends Biological {
                         if (card instanceof TargetSelect targetSelect) {
                             Biological target = targetSelect.select();
                             card.execute(this, List.of(target));
-                            continues.set(card.cost() > 0); // 消耗行动点的卡不结束回合
+                            continues.set(!(card instanceof AttackCard)); // 非攻击卡不结束回合
                         }
                     }));
                 }
