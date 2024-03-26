@@ -1,12 +1,16 @@
 package team.h2syj.fish.utils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+
+import lombok.Getter;
 
 public class BeanUtils {
 
@@ -57,15 +61,21 @@ public class BeanUtils {
         return result;
     }
 
+    public static <T extends Annotation> Optional<T> findAnnotation(Class<?> clazz, Class<T> annotaionClass) {
+        return Optional.ofNullable(clazz.getDeclaredAnnotation(annotaionClass));
+    }
+
     public static BeanHelper getBeanHelper(Class<?> clazz) {
         return map.computeIfAbsent(clazz, BeanHelper::new);
     }
 
+    @Getter
     public static class BeanHelper {
         private final List<Field> fields;
         private final List<Method> methods;
         private final List<Class<?>> interfaces;
         private final Class<?> superclass;
+        private final List<Annotation> annotations;
 
         private BeanHelper(Class<?> clazz) {
             this.fields = List.of(clazz.getDeclaredFields());
@@ -77,22 +87,7 @@ public class BeanUtils {
             this.methods = List.of(clazz.getDeclaredMethods());
             this.interfaces = List.of(clazz.getInterfaces());
             this.superclass = clazz.getSuperclass();
-        }
-
-        public List<Field> getFields() {
-            return fields;
-        }
-
-        public List<Method> getMethods() {
-            return methods;
-        }
-
-        public List<Class<?>> getInterfaces() {
-            return interfaces;
-        }
-
-        public Class<?> getSuperclass() {
-            return superclass;
+            this.annotations = List.of(clazz.getDeclaredAnnotations());
         }
     }
 

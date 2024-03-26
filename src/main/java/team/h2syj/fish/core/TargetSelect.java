@@ -21,7 +21,7 @@ public interface TargetSelect {
             AtomicReference<Biological> select = new AtomicReference<>();
             for (int j = 0; j < monsters.size(); j++) {
                 Biological monster = monsters.get(j);
-                renderer.print("%s）", j + 1).println(monster);
+                renderer.print("%s）", j + 1).print(monster).end();
                 targetChooses.add(new Choose(String.valueOf(j + 1), s -> select.set(monster)));
             }
             Controller controller;
@@ -48,7 +48,7 @@ public interface TargetSelect {
             AtomicReference<Biological> select = new AtomicReference<>();
             for (int j = 0; j < list.size(); j++) {
                 Biological target = list.get(j);
-                renderer.print("%s）", j + 1).println(target);
+                renderer.print("%s）", j + 1).print(target).end();
                 targetChooses.add(new Choose(String.valueOf(j + 1), s -> select.set(target)));
             }
             Controller controller;

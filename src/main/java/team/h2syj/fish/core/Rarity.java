@@ -9,6 +9,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Rarity {
 
+    int normal = 1; // 普通品质
+    int rare = 2; // 稀有品质
+    int legend = 3; // 传说品质
+
     /**
      * 物品稀有等级 </br>
      * 暂定 1-3 级

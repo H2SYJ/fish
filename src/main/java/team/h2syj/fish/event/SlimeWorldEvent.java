@@ -21,7 +21,7 @@ public class SlimeWorldEvent extends MonsterWorldEvent {
         Runtime.fighting(p1, p2, monsters);
 
         Renderer renderer = new Renderer("战斗胜利");
-        renderer.println("获得5g");
+        renderer.print("获得5g").end();
         p1.getData().modifyGold(5);
         if (p2 != null)
             p2.getData().modifyGold(5);

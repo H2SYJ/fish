@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
+import team.h2syj.fish.core.Renderer.ColorList;
 import team.h2syj.fish.player.Player;
+import team.h2syj.fish.utils.CardUtils;
 
 public class Runtime {
 
@@ -34,13 +36,14 @@ public class Runtime {
         Player player = new Player();
         player.setName("我");
         me = player;
-        System.out.println(String.format("""
-                初始卡牌：
-                %s
-
-                1）继续
-                """, player.deck));
-        new Controller().next("1", input -> new World(player).start());
+        Renderer renderer = new Renderer("初始卡牌");
+        player.deck.stream().forEach(card -> {
+            int color = CardUtils.getCardColor(card);
+            renderer.newLine().color(color).print(card).end();
+        });
+        renderer.newLine().end();
+        Controller.enterContinue();
+        new World(player).start();
     }
 
     public static void fighting(Player p1, Player p2, List<Biological> monsters) {
@@ -48,12 +51,11 @@ public class Runtime {
         battlefield = new Battlefield(p1, p2, monsters);
         battlefield.triggerEvent(BaseBattlefieldEvent.class, BaseBattlefieldEvent.Type.进入战斗);
         do {
-            renderer.println("行动轴：（当前回合）%s", battlefield.getTurn());
+            renderer.print("行动轴：（当前回合）%s", battlefield.getTurn()).end();
             Biological biological = battlefield.next();
             battlefield.triggerEvent(TurnBattlefieldEvent.class, TurnBattlefieldEvent.Type.回合开始, biological);
             if (biological == me)
-                renderer.println(biological.getStateString());
-            renderer.println();
+                renderer.newLine().color(ColorList.green_spring).print(biological.getStateString()).end();
             biological.action();
             // 宣布回合结束
             battlefield.triggerEvent(TurnBattlefieldEvent.class, TurnBattlefieldEvent.Type.回合结束, biological);
@@ -66,7 +68,7 @@ public class Runtime {
 
     private static void endGame() {
         Renderer renderer = new Renderer("游戏结束");
-        renderer.println("啊哈！你输了！");
+        renderer.print("啊哈！你输了！").end();
         throw new GameOverException();
     }
 

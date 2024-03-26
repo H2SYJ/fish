@@ -22,12 +22,12 @@ public class World {
 
     private void init() {
         Renderer renderer = new Renderer("初始化世界");
-        renderer.print("怪物正在四处游荡").slowPrintln(1000, "...");
+        renderer.print("怪物正在四处游荡...").end();
         events.add(new SlimeWorldEvent());
-        renderer.println("每天的奇迹正在发生...");
-        renderer.println("神秘的宝箱里有什么呢...");
-        renderer.println("商店老板进货中...");
-        renderer.println("邪教徒召唤Boss中...");
+        renderer.print("每天的奇迹正在发生...").end();
+        renderer.print("神秘的宝箱里有什么呢...").end();
+        renderer.print("商店老板进货中...").end();
+        renderer.print("邪教徒召唤Boss中...").end();
     }
 
     public void start() {

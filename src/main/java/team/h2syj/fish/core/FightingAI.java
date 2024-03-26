@@ -9,6 +9,7 @@ import team.h2syj.fish.core.Card.AttackCard;
 import team.h2syj.fish.core.Card.BuffCard;
 import team.h2syj.fish.core.Card.DeBuffCard;
 import team.h2syj.fish.core.Card.MagicCard;
+import team.h2syj.fish.core.Renderer.ColorList;
 import team.h2syj.fish.core.TargetSelect.EnemyTargetSelect;
 import team.h2syj.fish.core.TargetSelect.FriendlyTargetSelect;
 import team.h2syj.fish.core.TargetSelect.SelfTargetSelect;
@@ -30,7 +31,7 @@ public class FightingAI {
 
     public void action() {
         if (self.state != State.正常) {
-            renderer.println("暂时无法行动");
+            renderer.newLine().color(ColorList.red_cochineal).print("暂时无法行动").end();
             return;
         }
         FightingState fightingState = self.fightingState;
@@ -60,7 +61,7 @@ public class FightingAI {
     public void execute(Card card) {
         List<Biological> targetList = getTargetList(card);
         for (Biological biological : targetList) {
-            renderer.println("对 %s 目标使用 %s", biological.getName(), card);
+            renderer.print("对 %s 目标使用 %s", biological.getName(), card).end();
         }
         card.execute(self, targetList);
     }

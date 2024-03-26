@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.fusesource.jansi.Ansi.Attribute;
+
 import team.h2syj.fish.card.buff.BuffCard_Talent;
 import team.h2syj.fish.card.magic.MagicCard_Strategize;
 import team.h2syj.fish.core.Biological;
@@ -12,8 +14,12 @@ import team.h2syj.fish.core.Card.AttackCard;
 import team.h2syj.fish.core.Choose;
 import team.h2syj.fish.core.Controller;
 import team.h2syj.fish.core.Deck;
+import team.h2syj.fish.core.Rarity;
 import team.h2syj.fish.core.Renderer;
+import team.h2syj.fish.core.Renderer.ColorList;
+import team.h2syj.fish.core.Renderer.Line;
 import team.h2syj.fish.core.TargetSelect;
+import team.h2syj.fish.utils.CardUtils;
 
 public class Player extends Biological {
     public Player() {
@@ -35,7 +41,7 @@ public class Player extends Biological {
         Renderer renderer = new Renderer("开始行动");
         AtomicBoolean continues = new AtomicBoolean(false);
         do {
-            renderer.println("当前手牌");
+            renderer.print("当前手牌").end();
             Deck curDeck = fightingState.getCurDeck();
             int actionPoint = fightingState.getAction();
             List<Card> cards = curDeck.getCards();
@@ -43,9 +49,10 @@ public class Player extends Biological {
             for (int i = 0; i < cards.size(); i++) {
                 Card card = cards.get(i);
                 int cost = card.cost();
-                renderer.print("%s）", i + 1);
+                Line line = renderer.print("%s）", i + 1);
                 if (cost > actionPoint) {
-                    renderer.print("（🚫行动点不足）");
+                    line.attribute(Attribute.STRIKETHROUGH_ON);
+                    line.color(ColorList.red_cochineal).print("（🚫行动点不足）");
                 } else {
                     chooses.add(new Choose(String.valueOf(i + 1), input -> {
                         if (card instanceof TargetSelect targetSelect) {
@@ -55,11 +62,11 @@ public class Player extends Biological {
                         }
                     }));
                 }
-                renderer.println(card);
+                line.color(CardUtils.getCardColor(card)).print(card).end();
             }
 
             if (state != State.正常) {
-                renderer.println("你当前无法行动");
+                renderer.newLine().color(ColorList.red_cochineal).print("你当前无法行动").end();
                 return;
             }
 
@@ -73,6 +80,7 @@ public class Player extends Biological {
         } while (continues.get());
     }
 
+    @Rarity(Rarity.normal)
     public static class NormalAttackCard extends AttackCard {
         @Override
         public String name() {

@@ -39,4 +39,8 @@ public class Controller {
         return this;
     }
 
+    public static void enterContinue() {
+        new Controller("回车继续");
+    }
+
 }

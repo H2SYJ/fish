@@ -4,8 +4,10 @@ import java.util.List;
 
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.MagicCard;
+import team.h2syj.fish.core.Rarity;
 import team.h2syj.fish.core.TargetSelect.SelfTargetSelect;
 
+@Rarity(Rarity.rare)
 public class MagicCard_Strategize extends MagicCard implements SelfTargetSelect {
 
     @Override

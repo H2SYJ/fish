@@ -14,6 +14,10 @@ public class Utils {
         return list.get(random(0, list.size() - 1));
     }
 
+    public static int hexToInt(String hexStr) {
+        return Integer.parseInt(hexStr, 16);
+    }
+
     /**
      * <pre>
      * Utils.isEmpty(null)      = true
