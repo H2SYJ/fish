@@ -132,6 +132,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         Deck deck; // 牌组
         Deck curDeck = new Deck(); // 手牌
         Deck nextDeck = new Deck(); // 墓地
+        int taunt = 50; // 嘲讽值
         List<Buff> buffs = new ArrayList<>();
         List<DeBuff> deBuffs = new ArrayList<>();
 

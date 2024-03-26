@@ -3,6 +3,7 @@ package team.h2syj.fish.core;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import team.h2syj.fish.utils.Utils;
 
@@ -47,6 +48,10 @@ public class Deck {
             return this;
         this.cards.remove(card);
         return this;
+    }
+
+    public Stream<Card> stream() {
+        return this.cards.stream();
     }
 
     @Override

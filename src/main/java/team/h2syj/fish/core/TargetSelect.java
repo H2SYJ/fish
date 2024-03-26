@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-import team.h2syj.fish.monster.Monster;
-
 public interface TargetSelect {
 
     Biological select();
@@ -18,11 +16,11 @@ public interface TargetSelect {
         default Biological select() {
             Renderer renderer = new Renderer("选择目标");
             Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
-            List<Monster> monsters = battlefield.getMonsters();
+            List<Biological> monsters = battlefield.getMonsters();
             List<Choose> targetChooses = new ArrayList<>();
             AtomicReference<Biological> select = new AtomicReference<>();
             for (int j = 0; j < monsters.size(); j++) {
-                Monster monster = monsters.get(j);
+                Biological monster = monsters.get(j);
                 renderer.print("%s）", j + 1).println(monster);
                 targetChooses.add(new Choose(String.valueOf(j + 1), s -> select.set(monster)));
             }

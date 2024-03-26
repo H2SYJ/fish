@@ -9,7 +9,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.utils.BeanUtils;
 import team.h2syj.fish.utils.Utils;
 
@@ -20,7 +19,7 @@ public class BattlefieldEventRegister {
     public void scan(Battlefield battlefield) {
         register(battlefield.getP1());
         register(battlefield.getP2());
-        for (Monster monster : battlefield.getMonsters()) {
+        for (Biological monster : battlefield.getMonsters()) {
             register(monster);
         }
     }

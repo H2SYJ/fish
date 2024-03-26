@@ -16,11 +16,11 @@ import team.h2syj.fish.player.Player;
 public class Battlefield {
     private final Player p1;
     private final Player p2;
-    private final List<Monster> monsters;
+    private final List<Biological> monsters;
     private final BattlefieldEventRegister register = new BattlefieldEventRegister();
     private final Turn turn;
 
-    public Battlefield(Player p1, Player p2, List<Monster> monsters) {
+    public Battlefield(Player p1, Player p2, List<Biological> monsters) {
         this.p1 = p1;
         this.p2 = p2;
         this.monsters = monsters;

@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
-import team.h2syj.fish.monster.Monster;
 import team.h2syj.fish.player.Player;
 
 public class Runtime {
@@ -44,7 +43,7 @@ public class Runtime {
         new Controller().next("1", input -> new World(player).start());
     }
 
-    public static void fighting(Player p1, Player p2, List<Monster> monsters) {
+    public static void fighting(Player p1, Player p2, List<Biological> monsters) {
         Renderer renderer = new Renderer("进入战斗");
         battlefield = new Battlefield(p1, p2, monsters);
         battlefield.triggerEvent(BaseBattlefieldEvent.class, BaseBattlefieldEvent.Type.进入战斗);
