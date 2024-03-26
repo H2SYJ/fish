@@ -41,10 +41,20 @@ public interface DeBuff extends Effect {
         public abstract double down(double damage, Biological attacker, Biological target);
     }
 
-    // 数值提升
+    // 数值降低
     abstract class ExaltationDeBuff extends AbstractDeBuff {
         public ExaltationDeBuff(int turn) {
             super(turn);
         }
+    }
+
+    // 回合开始时触发减益
+    abstract class TurnBeforeDeBuff extends AbstractDeBuff {
+
+        public TurnBeforeDeBuff(int turn) {
+            super(turn);
+        }
+
+        public abstract void execute(Biological attacker);
     }
 }

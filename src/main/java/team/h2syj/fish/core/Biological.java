@@ -8,10 +8,12 @@ import java.util.stream.IntStream;
 import lombok.Getter;
 import lombok.Setter;
 import team.h2syj.fish.buff.Buff;
+import team.h2syj.fish.buff.Buff.TurnBeforeBuff;
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
 import team.h2syj.fish.debuff.DeBuff;
+import team.h2syj.fish.debuff.DeBuff.TurnBeforeDeBuff;
 
 /**
  * 生物抽象类
@@ -69,6 +71,11 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         return this;
     }
 
+    public Biological recover(double hp) {
+        this.data.curHp = Math.min(this.data.curHp + hp, this.data.hp);
+        return this;
+    }
+
     @Override
     public void process(BaseBattlefieldEvent.Type type) {
         switch (type) {
@@ -88,6 +95,15 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
             return;
         switch (type) {
         case 回合开始 -> {
+            for (Buff item : getBuffs()) {
+                if (item instanceof TurnBeforeBuff buff)
+                    buff.execute(target);
+            }
+            for (DeBuff item : getDeBuffs()) {
+                if (item instanceof TurnBeforeDeBuff buff)
+                    buff.execute(target);
+            }
+
             // 回合开始恢复一点行动点
             if (fightingState.action < data.action)
                 fightingState.modifyAction(1);
