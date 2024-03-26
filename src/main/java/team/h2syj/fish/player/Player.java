@@ -23,12 +23,12 @@ import team.h2syj.fish.core.TargetSelect;
 public class Player extends Biological {
     public Player() {
         super(20d);
-        deck.add(new Attack_让我摸摸看());
-        deck.add(new Attack_让我摸摸看());
-        deck.add(new Attack_让我摸摸看());
-        deck.add(new Attack_让我摸摸看());
-        deck.add(new Attack_让我摸摸看());
-        deck.add(new Attack_让我摸摸看());
+        deck.add(new AttackCard_让我摸摸看());
+        deck.add(new AttackCard_让我摸摸看());
+        deck.add(new AttackCard_让我摸摸看());
+        deck.add(new AttackCard_让我摸摸看());
+        deck.add(new AttackCard_让我摸摸看());
+        deck.add(new AttackCard_让我摸摸看());
         deck.add(new MagicCard_运筹帷幄());
         deck.add(new MagicCard_运筹帷幄());
         deck.add(new BuffCard_重攻击());
@@ -83,7 +83,7 @@ public class Player extends Biological {
     }
 
     @Rarity(Rarity.normal)
-    public static class Attack_让我摸摸看 extends AttackCard {
+    public static class AttackCard_让我摸摸看 extends AttackCard {
         @Override
         public String name() {
             return "让我摸摸看！";

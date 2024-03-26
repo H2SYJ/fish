@@ -6,20 +6,20 @@ public class Slime extends Monster {
     public Slime() {
         super(5);
         setName("史莱姆");
-        deck.add(new Attack_撞撞());
-        deck.add(new Attack_撞撞());
-        deck.add(new Attack_撞撞());
-        deck.add(new Attack_撞撞());
-        deck.add(new Attack_撞撞());
-        deck.add(new Attack_撞撞());
-        deck.add(new Attack_撞撞());
-        deck.add(new Attack_撞撞());
-        deck.add(new Attack_呆呆());
-        deck.add(new Attack_呆呆());
-        deck.add(new Attack_呆呆());
+        deck.add(new AttackCard_撞撞());
+        deck.add(new AttackCard_撞撞());
+        deck.add(new AttackCard_撞撞());
+        deck.add(new AttackCard_撞撞());
+        deck.add(new AttackCard_撞撞());
+        deck.add(new AttackCard_撞撞());
+        deck.add(new AttackCard_撞撞());
+        deck.add(new AttackCard_撞撞());
+        deck.add(new AttackCard_呆呆());
+        deck.add(new AttackCard_呆呆());
+        deck.add(new AttackCard_呆呆());
     }
 
-    public static class Attack_呆呆 extends AttackCard {
+    public static class AttackCard_呆呆 extends AttackCard {
         @Override
         public String name() {
             return "呆呆";
@@ -36,7 +36,7 @@ public class Slime extends Monster {
         }
     }
 
-    public static class Attack_撞撞 extends AttackCard {
+    public static class AttackCard_撞撞 extends AttackCard {
         @Override
         public String name() {
             return "撞撞";
