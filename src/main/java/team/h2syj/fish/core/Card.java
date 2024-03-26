@@ -52,12 +52,12 @@ public interface Card extends Treasure {
     }
 
     abstract class AttackCard extends AbstractCard implements EnemyTargetSelect {
-        public abstract double baseDamage();
+        public abstract double baseDamage(Biological self, List<Biological> target);
 
         @Override
         public void process(Biological self, List<Biological> target) {
             for (Biological biological : target) {
-                double damage = DamageCalculator.calculate(baseDamage(), self, biological);
+                double damage = DamageCalculator.calculate(baseDamage(self, target), self, biological);
                 biological.injuried(damage);
             }
         }

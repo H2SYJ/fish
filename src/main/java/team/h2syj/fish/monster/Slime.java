@@ -1,5 +1,8 @@
 package team.h2syj.fish.monster;
 
+import java.util.List;
+
+import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.AttackCard;
 
 public class Slime extends Monster {
@@ -31,7 +34,7 @@ public class Slime extends Monster {
         }
 
         @Override
-        public double baseDamage() {
+        public double baseDamage(Biological self, List<Biological> target) {
             return 0;
         }
 
@@ -49,11 +52,11 @@ public class Slime extends Monster {
 
         @Override
         public String desc() {
-            return String.format("对敌方单体造成%s点伤害", baseDamage());
+            return "对敌方单体造成1点伤害";
         }
 
         @Override
-        public double baseDamage() {
+        public double baseDamage(Biological self, List<Biological> target) {
             return 1;
         }
 

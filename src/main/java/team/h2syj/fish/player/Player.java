@@ -91,11 +91,11 @@ public class Player extends Biological {
 
         @Override
         public String desc() {
-            return String.format("对敌方单体造成%s点伤害「摸一下！真的就一下！」", baseDamage());
+            return "对敌方单体造成3点伤害「摸一下！真的就一下！」";
         }
 
         @Override
-        public double baseDamage() {
+        public double baseDamage(Biological self, List<Biological> target) {
             return 3;
         }
 
