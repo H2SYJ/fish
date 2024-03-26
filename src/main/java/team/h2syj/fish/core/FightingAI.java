@@ -34,10 +34,9 @@ public class FightingAI {
             return;
         }
         FightingState fightingState = self.fightingState;
-        List<Card> list;
-        Optional<Card> optCard;
         while (true) {
-            list = getUsedCardList(fightingState);
+            Optional<Card> optCard;
+            List<Card> list = getUsedCardList(fightingState);
             // 优先挂debuff
             (optCard = deBuffCard(list)).ifPresent(this::execute);
             if (optCard.isPresent())
