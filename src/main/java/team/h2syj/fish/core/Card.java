@@ -6,7 +6,6 @@ import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent.Type;
 import team.h2syj.fish.core.Biological.State;
 import team.h2syj.fish.core.TargetSelect.EnemyTargetSelect;
-import team.h2syj.fish.core.TargetSelect.FriendlyTargetSelect;
 import team.h2syj.fish.utils.DamageCalculator;
 
 /**
@@ -18,9 +17,7 @@ public interface Card extends Treasure {
 
     String desc();
 
-    default int cost() {
-        return 0;
-    }
+    int cost();
 
     default void execute(Biological self, List<Biological> target) {
         int cost = cost();
@@ -48,7 +45,7 @@ public interface Card extends Treasure {
         }
     }
 
-    abstract class BuffCard extends AbstractCard implements FriendlyTargetSelect {
+    abstract class BuffCard extends AbstractCard {
     }
 
     abstract class DeBuffCard extends AbstractCard implements EnemyTargetSelect {

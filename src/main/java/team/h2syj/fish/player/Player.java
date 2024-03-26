@@ -98,6 +98,11 @@ public class Player extends Biological {
         public double baseDamage() {
             return 3;
         }
+
+        @Override
+        public int cost() {
+            return 0;
+        }
     }
 
 }

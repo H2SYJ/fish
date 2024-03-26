@@ -7,53 +7,54 @@ import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.BuffCard;
 import team.h2syj.fish.core.Rarity;
 import team.h2syj.fish.core.TargetSelect.SelfTargetSelect;
+import team.h2syj.fish.utils.Utils;
 
+/**
+ * 姬子 若当前生命值百分比大于等于80%，则暴击率提高15%。
+ */
 @Rarity(Rarity.normal)
-public class BuffCard_重攻击 extends BuffCard implements SelfTargetSelect {
-
-    final int baseDamage = 2;
-    final int attachDamage = 2;
+public class BuffCard_道标 extends BuffCard implements SelfTargetSelect {
 
     @Override
     public String name() {
-        return "重攻击";
+        return "道标";
     }
 
     @Override
     public String desc() {
-        return "下次造成的伤害+%d。行动点为偶数时：伤害额外+%d。".formatted(baseDamage, attachDamage);
+        return "若当前生命值百分比大于等于80%%，伤害+3。";
     }
 
     @Override
     public int cost() {
-        return 1;
+        return 2;
     }
 
     @Override
     public void process(Biological self, List<Biological> target) {
-        self.addBuff(new Buff_重攻击());
+        self.addBuff(new Buff_道标());
     }
 
-    public class Buff_重攻击 extends DamageUpBuff {
-        public Buff_重攻击() {
-            super(1);
+    public class Buff_道标 extends DamageUpBuff {
+        public Buff_道标() {
+            super(Utils.INFINITE);
         }
 
         @Override
         public String name() {
-            return "重攻击";
+            return "道标";
         }
 
         @Override
         public String desc() {
-            return "下次造成的伤害+%d。行动点为偶数时：伤害额外+%d".formatted(baseDamage, attachDamage);
+            return "若当前生命值百分比大于等于80%%，伤害+3。";
         }
 
         @Override
         public double up(double damage, Biological attacker, Biological target) {
-            if (attacker.getFightingState().getAction() % 2 == 0)
-                return baseDamage + attachDamage;
-            return baseDamage;
+            if (attacker.curHp() / attacker.maxHp() >= 0.8)
+                return +3;
+            return 0;
         }
     }
 

@@ -6,12 +6,12 @@ import team.h2syj.fish.core.Renderer;
 import team.h2syj.fish.core.Renderer.ColorList;
 import team.h2syj.fish.debuff.DeBuff.TurnBeforeDeBuff;
 
-public class TurnBeforeDeBuff_Burn extends TurnBeforeDeBuff {
+public class TurnBeforeDeBuff_灼烧 extends TurnBeforeDeBuff {
 
     @Setter
     private int damage;
 
-    public TurnBeforeDeBuff_Burn(int turn, int damage) {
+    public TurnBeforeDeBuff_灼烧(int turn, int damage) {
         super(turn);
         setDamage(damage);
     }
