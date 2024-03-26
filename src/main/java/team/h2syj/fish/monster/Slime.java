@@ -34,6 +34,11 @@ public class Slime extends Monster {
         public double baseDamage() {
             return 0;
         }
+
+        @Override
+        public int cost() {
+            return 0;
+        }
     }
 
     public static class AttackCard_撞撞 extends AttackCard {
@@ -50,6 +55,11 @@ public class Slime extends Monster {
         @Override
         public double baseDamage() {
             return 1;
+        }
+
+        @Override
+        public int cost() {
+            return 0;
         }
     }
 
