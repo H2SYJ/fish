@@ -16,7 +16,7 @@ public class AttackCard_安神秘法 extends AttackCard implements EnemyTargetSe
 
     @Override
     public String desc() {
-        return "对敌方单位造成10点伤害。当前生命值低于50%造成15点伤害并回复30%生命值上限";
+        return "对敌方单位造成10点伤害。当前生命值低于50%时造成15点伤害并回复30%生命值上限";
     }
 
     @Override

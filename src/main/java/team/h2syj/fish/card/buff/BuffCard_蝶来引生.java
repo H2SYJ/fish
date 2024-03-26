@@ -45,7 +45,7 @@ public class BuffCard_蝶来引生 extends BuffCard implements SelfTargetSelect 
 
         @Override
         public String desc() {
-            return "消耗当前30%生命值（保留1点血）获取「蝶来引生」Buff。蝶来引生：获得当前生命值上限20%的伤害提升";
+            return "获得当前生命值上限20%的伤害提升";
         }
 
         @Override
