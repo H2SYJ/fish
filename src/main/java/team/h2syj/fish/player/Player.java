@@ -6,8 +6,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.fusesource.jansi.Ansi.Attribute;
 
-import team.h2syj.fish.card.buff.BuffCard_Talent;
-import team.h2syj.fish.card.magic.MagicCard_Strategize;
+import team.h2syj.fish.card.buff.BuffCard_重攻击;
+import team.h2syj.fish.card.magic.MagicCard_运筹帷幄;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card;
 import team.h2syj.fish.core.Card.AttackCard;
@@ -23,16 +23,16 @@ import team.h2syj.fish.core.TargetSelect;
 public class Player extends Biological {
     public Player() {
         super(20d);
-        deck.add(new NormalAttackCard());
-        deck.add(new NormalAttackCard());
-        deck.add(new NormalAttackCard());
-        deck.add(new NormalAttackCard());
-        deck.add(new NormalAttackCard());
-        deck.add(new NormalAttackCard());
-        deck.add(new MagicCard_Strategize());
-        deck.add(new MagicCard_Strategize());
-        deck.add(new BuffCard_Talent());
-        deck.add(new BuffCard_Talent());
+        deck.add(new Attack_让我摸摸看());
+        deck.add(new Attack_让我摸摸看());
+        deck.add(new Attack_让我摸摸看());
+        deck.add(new Attack_让我摸摸看());
+        deck.add(new Attack_让我摸摸看());
+        deck.add(new Attack_让我摸摸看());
+        deck.add(new MagicCard_运筹帷幄());
+        deck.add(new MagicCard_运筹帷幄());
+        deck.add(new BuffCard_重攻击());
+        deck.add(new BuffCard_重攻击());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Player extends Biological {
     }
 
     @Rarity(Rarity.normal)
-    public static class NormalAttackCard extends AttackCard {
+    public static class Attack_让我摸摸看 extends AttackCard {
         @Override
         public String name() {
             return "让我摸摸看！";

@@ -9,7 +9,7 @@ import team.h2syj.fish.core.Rarity;
 import team.h2syj.fish.core.TargetSelect.FriendlyTargetSelect;
 
 @Rarity(Rarity.normal)
-public class BuffCard_Talent extends BuffCard implements FriendlyTargetSelect {
+public class BuffCard_重攻击 extends BuffCard implements FriendlyTargetSelect {
 
     final int baseDamage = 2;
     final int attachDamage = 2;
