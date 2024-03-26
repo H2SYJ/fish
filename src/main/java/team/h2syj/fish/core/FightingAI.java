@@ -13,7 +13,6 @@ import team.h2syj.fish.core.Renderer.ColorList;
 import team.h2syj.fish.core.TargetSelect.EnemyTargetSelect;
 import team.h2syj.fish.core.TargetSelect.FriendlyTargetSelect;
 import team.h2syj.fish.core.TargetSelect.SelfTargetSelect;
-import team.h2syj.fish.utils.CardUtils;
 import team.h2syj.fish.utils.Utils;
 
 public class FightingAI {
@@ -63,7 +62,7 @@ public class FightingAI {
     public void execute(Card card) {
         List<Biological> targetList = getTargetList(card);
         for (Biological biological : targetList) {
-            renderer.print("对 %s 使用 ", biological.getName()).color(CardUtils.getCardColor(card)).print(card).end();
+            renderer.print("对 %s 使用 ", biological.getName()).color(card.getColor()).print(card).end();
         }
         card.execute(self, targetList);
     }

@@ -12,7 +12,7 @@ import team.h2syj.fish.utils.DamageCalculator;
 /**
  * 卡牌
  */
-public interface Card {
+public interface Card extends Treasure {
 
     String name();
 

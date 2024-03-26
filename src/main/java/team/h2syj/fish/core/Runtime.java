@@ -1,12 +1,15 @@
 package team.h2syj.fish.core;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
+import team.h2syj.fish.core.Renderer.Line;
 import team.h2syj.fish.player.Player;
-import team.h2syj.fish.utils.CardUtils;
+import team.h2syj.fish.utils.Utils;
 
 public class Runtime {
 
@@ -37,8 +40,7 @@ public class Runtime {
         me = player;
         Renderer renderer = new Renderer("初始卡牌");
         player.deck.stream().forEach(card -> {
-            int color = CardUtils.getCardColor(card);
-            renderer.newLine().color(color).print(card).end();
+            renderer.newLine().color(card.getColor()).print(card).end();
         });
         renderer.newLine().end();
         Controller.enterContinue();
@@ -62,6 +64,38 @@ public class Runtime {
             Runtime.endGame();
         battlefield.triggerEvent(BaseBattlefieldEvent.class, BaseBattlefieldEvent.Type.离开战斗);
         battlefield = null;
+    }
+
+    public static <T> T choose(String title, String tips, List<T> list) {
+        return choose(title, tips, list, null);
+    }
+
+    public static <T> T choose(String title, String tips, List<T> list, String cancel) {
+        Renderer renderer = new Renderer(title);
+        List<Choose> targetChooses = new ArrayList<>();
+        AtomicReference<T> select = new AtomicReference<>();
+        for (int i = 0; i < list.size(); i++) {
+            T item = list.get(i);
+            Line line = renderer.print("%s）", i + 1);
+            if (item instanceof Treasure treasure)
+                line.color(treasure.getColor());
+            line.print(item).end();
+            targetChooses.add(new Choose(String.valueOf(i + 1), s -> select.set(item)));
+        }
+        if (Utils.isNotEmpty(cancel)) {
+            renderer.print("n）%s", cancel).end();
+            targetChooses.add(new Choose("n", s -> {
+                select.set(null);
+            }));
+        }
+        Controller controller;
+        do {
+            controller = new Controller(tips);
+            for (Choose choose : targetChooses) {
+                controller.next(choose);
+            }
+        } while (!controller.isMatch());
+        return select.get();
     }
 
     private static void endGame() {

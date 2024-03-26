@@ -1,9 +1,13 @@
 package team.h2syj.fish.event;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
+import team.h2syj.fish.core.Card;
+import team.h2syj.fish.core.Rarity;
 import team.h2syj.fish.core.Renderer;
 import team.h2syj.fish.core.Runtime;
+import team.h2syj.fish.core.Treasure;
 import team.h2syj.fish.core.WorldEvent.MonsterWorldEvent;
 import team.h2syj.fish.monster.Slime;
 import team.h2syj.fish.player.Player;
@@ -25,6 +29,11 @@ public class SlimeWorldEvent extends MonsterWorldEvent {
         p1.getData().modifyGold(5);
         if (p2 != null)
             p2.getData().modifyGold(5);
+
+        List<Card> cards = Treasure.getCards(Rarity.normal, 3);
+        Card card = Runtime.choose("选择卡牌加入到卡组", "选择", cards, "拒绝");
+        if (card != null)
+            p1.getDeck().add(card);
     }
 
 }

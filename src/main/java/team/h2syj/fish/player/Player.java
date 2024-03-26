@@ -19,7 +19,6 @@ import team.h2syj.fish.core.Renderer;
 import team.h2syj.fish.core.Renderer.ColorList;
 import team.h2syj.fish.core.Renderer.Line;
 import team.h2syj.fish.core.TargetSelect;
-import team.h2syj.fish.utils.CardUtils;
 
 public class Player extends Biological {
     public Player() {
@@ -64,7 +63,7 @@ public class Player extends Biological {
                         }
                     }));
                 }
-                line.color(CardUtils.getCardColor(card)).print(card).end();
+                line.color(card.getColor()).print(card).end();
             }
 
             if (state != State.正常) {

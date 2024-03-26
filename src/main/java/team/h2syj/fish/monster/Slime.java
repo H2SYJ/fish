@@ -1,11 +1,6 @@
 package team.h2syj.fish.monster;
 
-import java.util.List;
-
-import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.AttackCard;
-import team.h2syj.fish.core.Card.MagicCard;
-import team.h2syj.fish.core.TargetSelect.SelfTargetSelect;
 
 public class Slime extends Monster {
     public Slime() {
@@ -23,7 +18,7 @@ public class Slime extends Monster {
         deck.add(new CuteCard());
     }
 
-    public static class CuteCard extends MagicCard implements SelfTargetSelect {
+    public static class CuteCard extends AttackCard {
         @Override
         public String name() {
             return "呆呆";
@@ -35,7 +30,8 @@ public class Slime extends Monster {
         }
 
         @Override
-        public void process(Biological self, List<Biological> target) {
+        public double baseDamage() {
+            return 0;
         }
     }
 

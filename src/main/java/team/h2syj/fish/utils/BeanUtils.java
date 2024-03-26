@@ -2,19 +2,30 @@ package team.h2syj.fish.utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
+import cn.hutool.core.util.ClassUtil;
 import lombok.Getter;
+import team.h2syj.fish.Main;
 
 public class BeanUtils {
 
     private static final Map<Class<?>, BeanHelper> map = new ConcurrentHashMap<>();
+
+    static {
+        for (Class<?> clazz : ClassUtil.scanPackage(Main.class.getPackageName())) {
+            map.put(clazz, new BeanHelper(clazz));
+        }
+    }
 
     public static List<Object> loadAllObj(Object obj) {
         List<Object> result = new ArrayList<>();
@@ -65,12 +76,17 @@ public class BeanUtils {
         return Optional.ofNullable(clazz.getDeclaredAnnotation(annotaionClass));
     }
 
+    public static Set<Class<?>> findClasses(Class<?> clazz) {
+        return map.keySet().stream().filter(item -> ClassUtil.isAssignable(clazz, item)).collect(Collectors.toSet());
+    }
+
     public static BeanHelper getBeanHelper(Class<?> clazz) {
         return map.computeIfAbsent(clazz, BeanHelper::new);
     }
 
     @Getter
     public static class BeanHelper {
+        private final Class<?> clazz;
         private final List<Field> fields;
         private final List<Method> methods;
         private final List<Class<?>> interfaces;
@@ -78,6 +94,7 @@ public class BeanUtils {
         private final List<Annotation> annotations;
 
         private BeanHelper(Class<?> clazz) {
+            this.clazz = clazz;
             this.fields = List.of(clazz.getDeclaredFields());
             if (!Utils.isEmpty(fields)) {
                 for (Field field : fields) {
@@ -88,6 +105,16 @@ public class BeanUtils {
             this.interfaces = List.of(clazz.getInterfaces());
             this.superclass = clazz.getSuperclass();
             this.annotations = List.of(clazz.getDeclaredAnnotations());
+        }
+
+        @SuppressWarnings("unchecked")
+        public <T> Optional<T> newInstance() {
+            try {
+                return Optional.of((T) clazz.getConstructor().newInstance());
+            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException
+                    | ClassCastException e) {
+                return Optional.empty();
+            }
         }
     }
 
