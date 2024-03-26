@@ -67,10 +67,10 @@ public class Runtime {
     }
 
     public static <T> T choose(String title, String tips, List<T> list) {
-        return choose(title, tips, list, null);
+        return choose(title, tips, list, null).orElseThrow();
     }
 
-    public static <T> T choose(String title, String tips, List<T> list, String cancel) {
+    public static <T> Optional<T> choose(String title, String tips, List<T> list, String cancel) {
         Renderer renderer = new Renderer(title);
         List<Choose> targetChooses = new ArrayList<>();
         AtomicReference<T> select = new AtomicReference<>();
@@ -95,7 +95,7 @@ public class Runtime {
                 controller.next(choose);
             }
         } while (!controller.isMatch());
-        return select.get();
+        return Optional.ofNullable(select.get());
     }
 
     private static void endGame() {

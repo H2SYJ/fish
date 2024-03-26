@@ -31,9 +31,7 @@ public class SlimeWorldEvent extends MonsterWorldEvent {
             p2.getData().modifyGold(5);
 
         List<Card> cards = Treasure.getCards(Rarity.normal, 3);
-        Card card = Runtime.choose("选择卡牌加入到卡组", "选择", cards, "拒绝");
-        if (card != null)
-            p1.getDeck().add(card);
+        Runtime.choose("选择卡牌加入到卡组", "选择", cards, "拒绝").ifPresent(p1.getDeck()::add);
     }
 
 }
