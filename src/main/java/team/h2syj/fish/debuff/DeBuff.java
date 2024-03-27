@@ -48,13 +48,10 @@ public interface DeBuff extends Effect {
         }
     }
 
-    // 回合开始时触发减益
-    abstract class TurnBeforeDeBuff extends AbstractDeBuff {
-
-        public TurnBeforeDeBuff(int turn) {
+    abstract class BaseDeBuff extends AbstractDeBuff {
+        public BaseDeBuff(int turn) {
             super(turn);
         }
-
-        public abstract void execute(Biological target);
     }
+
 }

@@ -9,15 +9,10 @@ import cn.hutool.core.util.NumberUtil;
 import lombok.Getter;
 import lombok.Setter;
 import team.h2syj.fish.buff.Buff;
-import team.h2syj.fish.buff.Buff.AttackAfterBuff;
-import team.h2syj.fish.buff.Buff.AttackBeforeBuff;
-import team.h2syj.fish.buff.Buff.TurnBeforeBuff;
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
-import team.h2syj.fish.core.Card.AttackCard;
 import team.h2syj.fish.debuff.DeBuff;
-import team.h2syj.fish.debuff.DeBuff.TurnBeforeDeBuff;
 
 /**
  * 生物抽象类
@@ -112,15 +107,6 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
             return;
         switch (type) {
         case 回合开始 -> {
-            for (Buff item : getBuffs()) {
-                if (item instanceof TurnBeforeBuff buff)
-                    buff.execute(this);
-            }
-            for (DeBuff item : getDeBuffs()) {
-                if (item instanceof TurnBeforeDeBuff buff)
-                    buff.execute(this);
-            }
-
             // 回合开始恢复一点行动点
             if (fightingState.action < data.action)
                 fightingState.modifyAction(1);
@@ -140,22 +126,8 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
             return;
         switch (type) {
         case 使用卡牌之前 -> {
-            // 施放攻击前Buff
-            if (card instanceof AttackCard) {
-                use.getBuffs().stream().filter(item -> item instanceof AttackBeforeBuff).forEach(item -> {
-                    ((AttackBeforeBuff) item).execute(use, target);
-                });
-            }
         }
-        case 使用卡牌之后 -> {
-            fightingState.useCard(card);
-            // 施放攻击后Buff
-            if (card instanceof AttackCard) {
-                use.getBuffs().stream().filter(item -> item instanceof AttackAfterBuff).forEach(item -> {
-                    ((AttackAfterBuff) item).execute(use, target);
-                });
-            }
-        }
+        case 使用卡牌之后 -> fightingState.useCard(card);
         }
     }
 

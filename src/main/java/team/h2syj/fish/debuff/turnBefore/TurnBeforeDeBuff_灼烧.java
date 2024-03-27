@@ -1,12 +1,13 @@
 package team.h2syj.fish.debuff.turnBefore;
 
 import lombok.Setter;
+import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Renderer;
 import team.h2syj.fish.core.Renderer.ColorList;
-import team.h2syj.fish.debuff.DeBuff.TurnBeforeDeBuff;
+import team.h2syj.fish.debuff.DeBuff.BaseDeBuff;
 
-public class TurnBeforeDeBuff_灼烧 extends TurnBeforeDeBuff {
+public class TurnBeforeDeBuff_灼烧 extends BaseDeBuff implements TurnBattlefieldEvent {
 
     @Setter
     private int damage;
@@ -27,12 +28,13 @@ public class TurnBeforeDeBuff_灼烧 extends TurnBeforeDeBuff {
     }
 
     @Override
-    public void execute(Biological target) {
-        target.injuried(damage);
-        new Renderer().newLine()
-                .color(ColorList.red_胭脂虫)
-                .print("%s受到%d点火属性持续伤害，%s", target.getName(), damage, target.hpContent())
-                .end();
+    public void process(Type type, Biological target) {
+        if (type == Type.回合开始) {
+            target.injuried(damage);
+            new Renderer().newLine()
+                    .color(ColorList.red_胭脂虫)
+                    .print("%s受到%d点火属性持续伤害，%s", target.getName(), damage, target.hpContent())
+                    .end();
+        }
     }
-
 }

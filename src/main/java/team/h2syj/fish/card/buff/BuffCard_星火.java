@@ -2,8 +2,10 @@ package team.h2syj.fish.card.buff;
 
 import java.util.List;
 
-import team.h2syj.fish.buff.Buff.AttackBeforeBuff;
+import team.h2syj.fish.buff.Buff.BaseBuff;
+import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
 import team.h2syj.fish.core.Biological;
+import team.h2syj.fish.core.Card;
 import team.h2syj.fish.core.Card.BuffCard;
 import team.h2syj.fish.core.Rarity;
 import team.h2syj.fish.core.TargetSelect.SelfTargetSelect;
@@ -33,11 +35,11 @@ public class BuffCard_星火 extends BuffCard implements SelfTargetSelect {
 
     @Override
     public void process(Biological self, List<Biological> target) {
-        self.addBuff(new Buff_星火());
+        self.addBuff(new AttackBeforeBuff_星火());
     }
 
-    public class Buff_星火 extends AttackBeforeBuff {
-        public Buff_星火() {
+    public class AttackBeforeBuff_星火 extends BaseBuff implements CardBattlefieldEvent {
+        public AttackBeforeBuff_星火() {
             super(Utils.INFINITE);
         }
 
@@ -52,11 +54,13 @@ public class BuffCard_星火 extends BuffCard implements SelfTargetSelect {
         }
 
         @Override
-        public void execute(Biological attacker, List<Biological> target) {
-            for (Biological biological : target) {
-                int random = Utils.random(0, 1);
-                if (random == 1) {
-                    biological.addDeBuff(new TurnBeforeDeBuff_灼烧(2, 3));
+        public void process(Type type, Card card, Biological use, List<Biological> target) {
+            if (type == Type.使用卡牌之前 && card instanceof AttackCard) {
+                for (Biological biological : target) {
+                    int random = Utils.random(0, 1);
+                    if (random == 1) {
+                        biological.addDeBuff(new TurnBeforeDeBuff_灼烧(2, 3));
+                    }
                 }
             }
         }
