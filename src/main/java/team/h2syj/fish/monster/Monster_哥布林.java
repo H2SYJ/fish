@@ -54,7 +54,7 @@ public class Monster_哥布林 extends Monster {
 
         @Override
         public String desc() {
-            return "对敌方单体造成3点伤害";
+            return "对敌方单体造成2点伤害";
         }
 
         @Override
@@ -64,7 +64,7 @@ public class Monster_哥布林 extends Monster {
 
         @Override
         public double baseDamage(Biological self, List<Biological> target) {
-            return 3;
+            return 2;
         }
     }
 
