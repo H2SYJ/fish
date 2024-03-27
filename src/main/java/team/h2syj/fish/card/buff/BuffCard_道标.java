@@ -2,6 +2,7 @@ package team.h2syj.fish.card.buff;
 
 import java.util.List;
 
+import cn.hutool.core.util.NumberUtil;
 import team.h2syj.fish.buff.Buff.DamageUpBuff;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.BuffCard;
@@ -52,7 +53,7 @@ public class BuffCard_道标 extends BuffCard implements SelfTargetSelect {
 
         @Override
         public double up(double damage, Biological attacker, Biological target) {
-            if (attacker.curHp() / attacker.maxHp() >= 0.8)
+            if (NumberUtil.div(attacker.curHp(), attacker.maxHp()) >= 0.8)
                 return +3;
             return 0;
         }

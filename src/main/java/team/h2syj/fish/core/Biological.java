@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import cn.hutool.core.util.NumberUtil;
 import lombok.Getter;
 import lombok.Setter;
 import team.h2syj.fish.buff.Buff;
@@ -72,7 +73,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     public Biological injuried(double damage) {
         Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
         battlefield.triggerEvent(InjuriedBattlefieldEvent.class, InjuriedBattlefieldEvent.Type.受到伤害之前, this);
-        this.data.curHp -= damage;
+        this.data.curHp = NumberUtil.sub(this.data.curHp, damage);
         if (this.data.curHp <= 0) {
             this.data.curHp = 0;
             battlefield.triggerEvent(DiedBattlefieldEvent.class, DiedBattlefieldEvent.Type.死亡前, this);
@@ -88,7 +89,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     }
 
     public Biological recover(double hp) {
-        this.data.curHp = Math.min(this.data.curHp + hp, this.data.hp);
+        this.data.curHp = Math.min(NumberUtil.add(this.data.curHp, hp), this.data.hp);
         return this;
     }
 
@@ -168,7 +169,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     }
 
     public String hpContent() {
-        int len = (int) (data.curHp / data.hp * 20);
+        int len = (int) (NumberUtil.mul(data.curHp, data.hp) * 20);
         String hpBar = IntStream.range(0, 20).mapToObj(i -> i < len ? "|" : "-").collect(Collectors.joining());
         return String.format("血量（%s/%s）：(%s)", data.curHp, data.hp, hpBar);
     }
@@ -231,7 +232,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
 
     @Override
     public String toString() {
-        return String.format("%s（%s/%s）", name, Math.ceil(data.getCurHp()), data.getHp());
+        return String.format("%s（%s/%s）", name, data.getCurHp(), data.getHp());
     }
 
 }
