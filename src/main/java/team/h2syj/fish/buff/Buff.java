@@ -1,5 +1,7 @@
 package team.h2syj.fish.buff;
 
+import java.util.List;
+
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Effect;
 
@@ -59,13 +61,22 @@ public interface Buff extends Effect {
         public abstract void execute(Biological target);
     }
 
-    // 施放攻击时
+    // 施放攻击前
     abstract class AttackBeforeBuff extends AbstractBuff {
         public AttackBeforeBuff(int turn) {
             super(turn);
         }
 
-        public abstract void execute(Biological attacker, Biological target);
+        public abstract void execute(Biological attacker, List<Biological> target);
+    }
+
+    // 施放攻击后
+    abstract class AttackAfterBuff extends AbstractBuff {
+        public AttackAfterBuff(int turn) {
+            super(turn);
+        }
+
+        public abstract void execute(Biological attacker, List<Biological> target);
     }
 
 }

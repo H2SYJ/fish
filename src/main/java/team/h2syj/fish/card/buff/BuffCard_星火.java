@@ -23,7 +23,7 @@ public class BuffCard_星火 extends BuffCard implements SelfTargetSelect {
 
     @Override
     public String desc() {
-        return "施放攻击后，有50%的基础概率使敌方目标陷入灼烧状态，持续2回合。灼烧状态下，敌方目标每回合开始时受到3点火属性持续伤害。";
+        return "施放攻击前，有50%的基础概率使敌方目标陷入灼烧状态，持续2回合。灼烧状态下，敌方目标每回合开始时受到3点火属性持续伤害。";
     }
 
     @Override
@@ -48,14 +48,16 @@ public class BuffCard_星火 extends BuffCard implements SelfTargetSelect {
 
         @Override
         public String desc() {
-            return "施放攻击后，有50%的基础概率使敌方目标陷入灼烧状态，持续2回合。灼烧状态下，敌方目标每回合开始时受到3点火属性持续伤害。";
+            return "施放攻击前，有50%的基础概率使敌方目标陷入灼烧状态，持续2回合。灼烧状态下，敌方目标每回合开始时受到3点火属性持续伤害。";
         }
 
         @Override
-        public void execute(Biological attacker, Biological target) {
-            int random = Utils.random(0, 1);
-            if (random == 1) {
-                target.addDeBuff(new TurnBeforeDeBuff_灼烧(2, 3));
+        public void execute(Biological attacker, List<Biological> target) {
+            for (Biological biological : target) {
+                int random = Utils.random(0, 1);
+                if (random == 1) {
+                    biological.addDeBuff(new TurnBeforeDeBuff_灼烧(2, 3));
+                }
             }
         }
     }

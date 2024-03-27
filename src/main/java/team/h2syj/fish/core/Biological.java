@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 import lombok.Getter;
 import lombok.Setter;
 import team.h2syj.fish.buff.Buff;
+import team.h2syj.fish.buff.Buff.AttackAfterBuff;
 import team.h2syj.fish.buff.Buff.AttackBeforeBuff;
 import team.h2syj.fish.buff.Buff.TurnBeforeBuff;
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
@@ -129,15 +130,19 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
             return;
         switch (type) {
         case 使用卡牌之前 -> {
+            // 施放攻击前Buff
+            if (card instanceof AttackCard) {
+                self.getBuffs().stream().filter(item -> item instanceof AttackBeforeBuff).forEach(item -> {
+                    ((AttackBeforeBuff) item).execute(self, target);
+                });
+            }
         }
         case 使用卡牌之后 -> {
             fightingState.useCard(card);
-            // 触发攻击后Buff
+            // 施放攻击后Buff
             if (card instanceof AttackCard) {
-                self.getBuffs().stream().filter(item -> item instanceof AttackBeforeBuff).forEach(item -> {
-                    for (Biological biological : target) {
-                        ((AttackBeforeBuff) item).execute(self, biological);
-                    }
+                self.getBuffs().stream().filter(item -> item instanceof AttackAfterBuff).forEach(item -> {
+                    ((AttackAfterBuff) item).execute(self, target);
                 });
             }
         }
