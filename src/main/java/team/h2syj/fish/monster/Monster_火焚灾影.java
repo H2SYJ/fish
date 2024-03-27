@@ -16,6 +16,10 @@ public class Monster_火焚灾影 extends Monster {
 
     public Monster_火焚灾影(double hp) {
         super(15);
+        deck.add(new AttackCard_灼炎重击());
+        deck.add(new AttackCard_灼炎重击());
+        deck.add(new AttackCard_灼炎重击());
+        deck.add(new AttackCard_灼炎重击());
     }
 
     public static class AttackCard_灼炎重击 extends AttackCard {
