@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.fusesource.jansi.Ansi.Attribute;
 
-import team.h2syj.fish.card.attack.AttackCard_领域压制;
 import team.h2syj.fish.card.buff.BuffCard_重攻击;
 import team.h2syj.fish.card.magic.MagicCard_运筹帷幄;
 import team.h2syj.fish.core.Biological;
@@ -34,7 +33,6 @@ public class Player extends Biological {
         deck.add(new MagicCard_运筹帷幄());
         deck.add(new BuffCard_重攻击());
         deck.add(new BuffCard_重攻击());
-        deck.add(new AttackCard_领域压制());
     }
 
     @Override
