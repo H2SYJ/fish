@@ -43,4 +43,13 @@ public interface BattlefieldEvent {
         void process(Type type, Card card, Biological self, List<Biological> target);
     }
 
+    interface DiedBattlefieldEvent extends BattlefieldEvent {
+        enum Type {
+            死亡前, // 复活、Boss二阶段需要这个
+            死亡后;
+        }
+
+        void process(Type type, Biological target);
+    }
+
 }

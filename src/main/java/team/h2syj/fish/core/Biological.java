@@ -73,7 +73,12 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         this.data.curHp -= damage;
         if (this.data.curHp <= 0) {
             this.data.curHp = 0;
-            this.state = State.死亡;
+            Runtime.getBattlefield().ifPresent(item -> item.triggerEvent(DiedBattlefieldEvent.class DiedBattlefieldEvent.Type.死亡前, this));
+            if (this.data.curHp == 0) { // 在死亡前可能被某种手段回血回复起来：如复活、Boss二阶段
+                this.state = State.死亡;
+                // 真正的死亡
+                Runtime.getBattlefield().ifPresent(item -> item.triggerEvent(DiedBattlefieldEvent.class DiedBattlefieldEvent.Type.死亡后, this));
+            }
         }
         return this;
     }
