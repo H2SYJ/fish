@@ -1,10 +1,10 @@
 package team.h2syj.fish.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
 
 import cn.hutool.core.util.ClassUtil;
@@ -23,7 +23,8 @@ public interface Treasure {
     }
 
     class CardTreasure {
-        private static final Map<Integer, List<Class<?>>> cards = new ConcurrentHashMap<>();
+        private static final Map<Integer, List<Class<?>>> cards = new HashMap<>();
+        private static final Map<Class<?>, Integer> rarityMap = new HashMap<>();
 
         static {
             for (Class<?> clazz : BeanUtils.findClasses(Card.class)) {
@@ -31,7 +32,12 @@ public interface Treasure {
                     continue;
                 Integer rarity = BeanUtils.findAnnotation(clazz, Rarity.class).map(Rarity::value).orElse(1);
                 cards.computeIfAbsent(rarity, i -> new ArrayList<>()).add(clazz);
+                rarityMap.put(clazz, rarity);
             }
+        }
+
+        public static int rarity(Class<? extends Card> cardClass) {
+            return rarityMap.getOrDefault(cardClass, 0);
         }
     }
 
@@ -56,9 +62,9 @@ public interface Treasure {
     static int getColor(Class<? extends Treasure> clazz) {
         Integer rarity = BeanUtils.findAnnotation(clazz, Rarity.class).map(Rarity::value).orElse(1);
         return switch (rarity) {
-        case Rarity.rare -> ColorList.purple;
-        case Rarity.legend -> ColorList.gold;
-        default -> ColorList.gray;
+        case Rarity.rare -> ColorList.purple_木槿;
+        case Rarity.legend -> ColorList.gold_松花;
+        default -> ColorList.gray_月魄;
         };
     }
 

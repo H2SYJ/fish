@@ -30,7 +30,7 @@ public class TurnBeforeDeBuff_灼烧 extends TurnBeforeDeBuff {
     public void execute(Biological target) {
         target.injuried(damage);
         new Renderer().newLine()
-                .color(ColorList.red_cochineal)
+                .color(ColorList.red_胭脂虫)
                 .print("%s受到%d点火属性持续伤害，%s", target.getName(), damage, target.hpContent())
                 .end();
     }

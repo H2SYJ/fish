@@ -222,7 +222,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         double curHp; // 当前血量
         double hp; // 血量上限
         int action = 5; // 行动点上限
-        int gold; // 金币
+        int gold = 100; // 金币
 
         public void modifyGold(int gold) {
             this.gold += gold;

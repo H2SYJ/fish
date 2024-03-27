@@ -15,7 +15,7 @@ public class Renderer {
 
     public Renderer(String title) {
         Ansi content = Ansi.ansi()
-                .fgRgb(ColorList.blue_xizi)
+                .fgRgb(ColorList.blue_西子)
                 .a(String.format("============%s============", title))
                 .reset();
         System.out.println(content);
@@ -110,12 +110,13 @@ public class Renderer {
     }
 
     public static class ColorList {
-        public static final int blue_xizi = getColorByHex("#87c0ca"); // 西子
-        public static final int green_spring = getColorByHex("#a9be7b"); // 春辰
-        public static final int red_cochineal = getColorByHex("#ab1d22"); // 胭脂虫
-        public static final int gray = getColorByHex("#b2b6b6"); // 月魄
-        public static final int purple = getColorByHex("#ba79b1"); // 木槿
-        public static final int gold = getColorByHex("#ffee6f"); // 松花
+        public static final int blue_西子 = getColorByHex("#87c0ca"); // 西子
+        public static final int green_春辰 = getColorByHex("#a9be7b"); // 春辰
+        public static final int red_胭脂虫 = getColorByHex("#ab1d22"); // 胭脂虫
+        public static final int gray_月魄 = getColorByHex("#b2b6b6"); // 月魄
+        public static final int purple_木槿 = getColorByHex("#ba79b1"); // 木槿
+        public static final int gold_松花 = getColorByHex("#ffee6f"); // 松花
+        public static final int gold_黄栗留 = getColorByHex("#fedc5e"); // 黄栗留
 
         public static int getColorByHex(String hex) {
             return Utils.hexToInt(hex.substring(1));

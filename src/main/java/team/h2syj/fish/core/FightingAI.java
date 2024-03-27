@@ -31,7 +31,7 @@ public class FightingAI {
 
     public void action() {
         if (self.state != State.正常) {
-            renderer.newLine().color(ColorList.red_cochineal).print("暂时无法行动").end();
+            renderer.newLine().color(ColorList.red_胭脂虫).print("暂时无法行动").end();
             return;
         }
         FightingState fightingState = self.fightingState;

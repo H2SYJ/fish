@@ -38,7 +38,7 @@ public class Player extends Biological {
     @Override
     public void action() {
         Renderer renderer = new Renderer("回合开始");
-        renderer.newLine().color(ColorList.green_spring).print(this.getStateString()).end();
+        renderer.newLine().color(ColorList.green_春辰).print(this.getStateString()).end();
 
         AtomicBoolean continues = new AtomicBoolean(false);
         do {
@@ -53,7 +53,7 @@ public class Player extends Biological {
                 Line line = renderer.print("%s）", i + 1);
                 if (cost > actionPoint) {
                     line.attribute(Attribute.STRIKETHROUGH_ON);
-                    line.color(ColorList.red_cochineal).print("（🚫行动点不足）");
+                    line.color(ColorList.red_胭脂虫).print("（🚫行动点不足）");
                 } else {
                     chooses.add(new Choose(String.valueOf(i + 1), input -> {
                         if (card instanceof TargetSelect targetSelect) {
@@ -66,7 +66,7 @@ public class Player extends Biological {
             }
 
             if (state != State.正常) {
-                renderer.newLine().color(ColorList.red_cochineal).print("你当前无法行动").end();
+                renderer.newLine().color(ColorList.red_胭脂虫).print("你当前无法行动").end();
                 return;
             }
             renderer.newLine().print("n）结束回合").end();

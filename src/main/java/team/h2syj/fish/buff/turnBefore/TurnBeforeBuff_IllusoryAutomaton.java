@@ -26,7 +26,7 @@ public class TurnBeforeBuff_IllusoryAutomaton extends TurnBeforeBuff {
     public void execute(Biological target) {
         target.recover(target.curHp() * 0.2);
         new Renderer().newLine()
-                .color(ColorList.green_spring)
+                .color(ColorList.green_春辰)
                 .print("%s触发%s，回复20%%生命，%s", target.getName(), name(), target.hpContent())
                 .end();
     }
