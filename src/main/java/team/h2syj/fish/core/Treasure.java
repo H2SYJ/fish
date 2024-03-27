@@ -30,9 +30,10 @@ public interface Treasure {
             for (Class<?> clazz : BeanUtils.findClasses(Card.class)) {
                 if (!ClassUtil.isNormalClass(clazz))
                     continue;
-                Integer rarity = BeanUtils.findAnnotation(clazz, Rarity.class).map(Rarity::value).orElse(1);
-                cards.computeIfAbsent(rarity, i -> new ArrayList<>()).add(clazz);
-                rarityMap.put(clazz, rarity);
+                BeanUtils.findAnnotation(clazz, Rarity.class).map(Rarity::value).ifPresent(rarity -> {
+                    cards.computeIfAbsent(rarity, i -> new ArrayList<>()).add(clazz);
+                    rarityMap.put(clazz, rarity);
+                });
             }
         }
 
