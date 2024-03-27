@@ -16,6 +16,7 @@ import team.h2syj.fish.player.Player;
 public class Battlefield {
     private final Player p1;
     private final Player p2;
+    private final List<Biological> friends;
     private final List<Biological> monsters;
     private final BattlefieldEventRegister register = new BattlefieldEventRegister();
     private final Turn turn;
@@ -23,6 +24,10 @@ public class Battlefield {
     public Battlefield(Player p1, Player p2, List<Biological> monsters) {
         this.p1 = p1;
         this.p2 = p2;
+        this.friends = new ArrayList<>();
+        this.friends.add(p1);
+        if (p2 != null)
+            this.friends.add(p2);
         this.monsters = monsters;
         this.turn = new Turn(p1, p2, monsters);
         // 事件注册器扫描战场将所有事件注册进去
@@ -63,14 +68,17 @@ public class Battlefield {
         return null;
     }
 
-    public List<Biological> getFriends() {
-        List<Biological> friends = new ArrayList<>();
-        friends.add(p1);
-        if (p2 != null)
-            friends.add(p2);
-        // TODO 随从
-        // ...
-        return friends;
+    /**
+     * 添加友方单位
+     * 
+     * @param self   自身
+     * @param friend 友方单位
+     */
+    public void addFriends(Biological self, Biological friend) {
+        if (self instanceof Monster)
+            monsters.add(friend);
+        else
+            friends.add(friend);
+        turn.add(friend);
     }
-
 }

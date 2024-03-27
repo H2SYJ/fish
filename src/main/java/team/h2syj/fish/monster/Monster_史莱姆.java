@@ -5,8 +5,8 @@ import java.util.List;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Card.AttackCard;
 
-public class Slime extends Monster {
-    public Slime() {
+public class Monster_史莱姆 extends Monster {
+    public Monster_史莱姆() {
         super(5);
         setName("史莱姆");
         deck.add(new AttackCard_撞撞());

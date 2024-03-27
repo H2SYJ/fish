@@ -35,6 +35,10 @@ public class Turn {
         return pop;
     }
 
+    public void add(Biological biological) {
+        axis.addLast(biological);
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

@@ -9,14 +9,14 @@ import team.h2syj.fish.core.Renderer;
 import team.h2syj.fish.core.Runtime;
 import team.h2syj.fish.core.Treasure;
 import team.h2syj.fish.core.WorldEvent.MonsterWorldEvent;
-import team.h2syj.fish.monster.Slime;
+import team.h2syj.fish.monster.Monster_史莱姆;
 import team.h2syj.fish.player.Player;
 import team.h2syj.fish.utils.Utils;
 
-public class SlimeWorldEvent extends MonsterWorldEvent {
-    public SlimeWorldEvent() {
+public class WorldEvent_史莱姆 extends MonsterWorldEvent {
+    public WorldEvent_史莱姆() {
         // 随机1-3个史莱姆
-        IntStream.range(0, Utils.random(1, 3)).mapToObj(i -> new Slime()).forEach(monsters::add);
+        IntStream.range(0, Utils.random(1, 3)).mapToObj(i -> new Monster_史莱姆()).forEach(monsters::add);
     }
 
     @Override
