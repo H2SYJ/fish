@@ -7,7 +7,7 @@ import java.util.Map;
 public class Utils {
 
     // 无限回合
-    public static final Integer INFINITE = 999999;
+    public static final Integer INFINITE = Integer.MAX_VALUE;
 
     public static int random(int min, int max) {
         return (int) (Math.random() * (max - min + 1)) + min;

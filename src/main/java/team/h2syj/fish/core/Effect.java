@@ -7,8 +7,9 @@ public interface Effect {
 
     int turn();
 
-    default boolean diffTurn() {
-        int turn = turn();
-        return --turn <= 0;
+    default double value() {
+        return -1;
     };
+
+    boolean diffTurn();
 }

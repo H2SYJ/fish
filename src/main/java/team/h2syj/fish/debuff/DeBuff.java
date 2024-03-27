@@ -1,5 +1,6 @@
 package team.h2syj.fish.debuff;
 
+import cn.hutool.core.util.NumberUtil;
 import team.h2syj.fish.core.Biological;
 import team.h2syj.fish.core.Effect;
 
@@ -7,9 +8,11 @@ public interface DeBuff extends Effect {
 
     abstract class AbstractDeBuff implements DeBuff {
         protected int turn;
+        protected double value;
 
         public AbstractDeBuff(int turn) {
             this.turn = turn;
+            this.value = value();
         }
 
         @Override
@@ -21,6 +24,22 @@ public interface DeBuff extends Effect {
         public int turn() {
             return turn;
         }
+
+        @Override
+        public boolean diffTurn() {
+            return --this.turn <= 0;
+        };
+
+        // 可用次数型buff每次传入1，护盾型每次传入伤害
+        // 减去后耗尽自动清除buff
+        public double diffValue(Biological target, double num) {
+            value = NumberUtil.sub(value(), num);
+            if (value <= 0) {
+                target.getDeBuffs().remove(this);
+                return -value;
+            }
+            return -num;
+        };
     }
 
     // 受到的伤害提升
