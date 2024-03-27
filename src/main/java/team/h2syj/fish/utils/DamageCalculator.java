@@ -3,7 +3,6 @@ package team.h2syj.fish.utils;
 import java.util.List;
 
 import team.h2syj.fish.buff.Buff;
-import team.h2syj.fish.buff.Buff.AttackBeforeBuff;
 import team.h2syj.fish.buff.Buff.DamageDownBuff;
 import team.h2syj.fish.buff.Buff.DamageUpBuff;
 import team.h2syj.fish.core.Biological;
@@ -18,8 +17,6 @@ public class DamageCalculator {
         // 攻击者Buff
         List<Buff> attackerBuffs = attacker.getBuffs();
         for (Buff attackerBuff : attackerBuffs) {
-            if (attackerBuff instanceof AttackBeforeBuff buff)
-                buff.execute(attacker, target);
             if (attackerBuff instanceof DamageUpBuff buff) // 造成伤害提升buff
                 damage += buff.up(baseDamage, attacker, target);
         }
