@@ -79,7 +79,6 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
                 this.state = State.死亡;
                 // 真正的死亡
                 battlefield.triggerEvent(DiedBattlefieldEvent.class, DiedBattlefieldEvent.Type.死亡后, this);
-                return this;
             }
         }
         battlefield.triggerEvent(InjuriedBattlefieldEvent.class, InjuriedBattlefieldEvent.Type.受到伤害之后, attacker, this,
