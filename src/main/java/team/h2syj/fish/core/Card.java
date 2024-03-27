@@ -52,7 +52,7 @@ public interface Card extends Treasure {
         public void process(Biological self, List<Biological> target) {
             for (Biological biological : target) {
                 double damage = DamageCalculator.calculate(baseDamage(self, target), self, biological);
-                biological.injuried(damage);
+                biological.injured(self, damage);
             }
         }
     }

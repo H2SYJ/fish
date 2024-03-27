@@ -48,6 +48,20 @@ public interface BattlefieldEvent {
         void process(Type type, Card card, Biological use, List<Biological> target);
     }
 
+    interface AttackBattlefieldEvent extends BattlefieldEvent {
+        enum Type {
+            造成伤害之前,
+            造成伤害之后;
+        }
+
+        /**
+         * @param attacker 造成伤害的对象：可能是 Biological、Buff、DeBuff 类
+         * @param target   受到伤害的对象
+         * @param damage   造成的伤害
+         */
+        void process(Type type, Object attacker, Biological target, double damage);
+    }
+
     interface InjuriedBattlefieldEvent extends BattlefieldEvent {
         enum Type {
             受到伤害之前,
@@ -55,9 +69,11 @@ public interface BattlefieldEvent {
         }
 
         /**
-         * @param target 受到伤害的对象
+         * @param attacker 造成伤害的对象：可能是 Biological、Buff、DeBuff 类
+         * @param target   受到伤害的对象
+         * @param damage   受到的伤害
          */
-        void process(Type type, Biological target);
+        void process(Type type, Object attacker, Biological target, double damage);
     }
 
     interface DiedBattlefieldEvent extends BattlefieldEvent {

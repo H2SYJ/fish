@@ -28,7 +28,7 @@ public class BuffCard_蝶来引生 extends BuffCard implements SelfTargetSelect 
     @Override
     public void process(Biological self, List<Biological> target) {
         if (self.curHp() > 5) {
-            self.injuried(self.curHp() * 0.3);
+            self.injured(self, self.curHp() * 0.3);
             self.addBuff(new Buff_蝶来引生());
         }
     }

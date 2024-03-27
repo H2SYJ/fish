@@ -65,9 +65,12 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
         return this;
     }
 
-    public Biological injuried(double damage) {
+    public Biological injured(Object attacker, double damage) {
         Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
-        battlefield.triggerEvent(InjuriedBattlefieldEvent.class, InjuriedBattlefieldEvent.Type.受到伤害之前, this);
+        battlefield.triggerEvent(AttackBattlefieldEvent.class, AttackBattlefieldEvent.Type.造成伤害之前, attacker, this,
+                damage);
+        battlefield.triggerEvent(InjuriedBattlefieldEvent.class, InjuriedBattlefieldEvent.Type.受到伤害之前, attacker, this,
+                damage);
         this.data.curHp = NumberUtil.sub(this.data.curHp, damage);
         if (this.data.curHp <= 0) {
             this.data.curHp = 0;
@@ -79,7 +82,10 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
                 return this;
             }
         }
-        battlefield.triggerEvent(InjuriedBattlefieldEvent.class, InjuriedBattlefieldEvent.Type.受到伤害之后, this);
+        battlefield.triggerEvent(InjuriedBattlefieldEvent.class, InjuriedBattlefieldEvent.Type.受到伤害之后, attacker, this,
+                damage);
+        battlefield.triggerEvent(AttackBattlefieldEvent.class, AttackBattlefieldEvent.Type.造成伤害之后, attacker, this,
+                damage);
         return this;
     }
 

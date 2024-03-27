@@ -51,7 +51,7 @@ public class Monster_火焚灾影 extends Monster {
         public void process(Biological self, List<Biological> target) {
             for (Biological biological : target) {
                 double damage = DamageCalculator.calculate(baseDamage(self, target), self, biological);
-                biological.injuried(damage);
+                biological.injured(self, damage);
 
                 int random = Utils.random(1, 10);
                 if (random <= 8) {
@@ -90,7 +90,7 @@ public class Monster_火焚灾影 extends Monster {
         public void process(Biological self, List<Biological> target) {
             for (Biological biological : target) {
                 double damage = DamageCalculator.calculate(baseDamage(self, target), self, biological);
-                biological.injuried(damage);
+                biological.injured(self, damage);
                 biological.addDeBuff(new TurnBeforeDeBuff_灼烧(dotTurn, dotDamage));
             }
         }

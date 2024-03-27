@@ -36,10 +36,10 @@ public class AttackCard_领域压制 extends AoeAttackCard {
     public void process(Biological self, Biological mainTarget, List<Biological> minorTarget) {
         double baseDamage = baseDamage(null, null);
         mainTarget.addDeBuff(new DeBuff_通解());
-        mainTarget.injuried(DamageCalculator.calculate(baseDamage, self, mainTarget));
+        mainTarget.injured(self, DamageCalculator.calculate(baseDamage, self, mainTarget));
         for (Biological biological : minorTarget) {
             biological.addDeBuff(new DeBuff_通解());
-            biological.injuried(DamageCalculator.calculate(baseDamage, self, biological));
+            biological.injured(self, DamageCalculator.calculate(baseDamage, self, biological));
         }
     }
 
