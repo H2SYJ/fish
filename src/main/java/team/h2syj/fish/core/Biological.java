@@ -70,16 +70,20 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     }
 
     public Biological injuried(double damage) {
+        Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
+        battlefield.triggerEvent(InjuriedBattlefieldEvent.class, InjuriedBattlefieldEvent.Type.受到伤害之前, this);
         this.data.curHp -= damage;
         if (this.data.curHp <= 0) {
             this.data.curHp = 0;
-            Runtime.getBattlefield().ifPresent(item -> item.triggerEvent(DiedBattlefieldEvent.class DiedBattlefieldEvent.Type.死亡前, this));
+            battlefield.triggerEvent(DiedBattlefieldEvent.class, DiedBattlefieldEvent.Type.死亡前, this);
             if (this.data.curHp == 0) { // 在死亡前可能被某种手段回血回复起来：如复活、Boss二阶段
                 this.state = State.死亡;
                 // 真正的死亡
-                Runtime.getBattlefield().ifPresent(item -> item.triggerEvent(DiedBattlefieldEvent.class DiedBattlefieldEvent.Type.死亡后, this));
+                battlefield.triggerEvent(DiedBattlefieldEvent.class, DiedBattlefieldEvent.Type.死亡后, this);
+                return this;
             }
         }
+        battlefield.triggerEvent(InjuriedBattlefieldEvent.class, InjuriedBattlefieldEvent.Type.受到伤害之后, this);
         return this;
     }
 
@@ -130,15 +134,15 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     }
 
     @Override
-    public void process(CardBattlefieldEvent.Type type, Card card, Biological self, List<Biological> target) {
-        if (this != self)
+    public void process(CardBattlefieldEvent.Type type, Card card, Biological use, List<Biological> target) {
+        if (this != use)
             return;
         switch (type) {
         case 使用卡牌之前 -> {
             // 施放攻击前Buff
             if (card instanceof AttackCard) {
-                self.getBuffs().stream().filter(item -> item instanceof AttackBeforeBuff).forEach(item -> {
-                    ((AttackBeforeBuff) item).execute(self, target);
+                use.getBuffs().stream().filter(item -> item instanceof AttackBeforeBuff).forEach(item -> {
+                    ((AttackBeforeBuff) item).execute(use, target);
                 });
             }
         }
@@ -146,8 +150,8 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
             fightingState.useCard(card);
             // 施放攻击后Buff
             if (card instanceof AttackCard) {
-                self.getBuffs().stream().filter(item -> item instanceof AttackAfterBuff).forEach(item -> {
-                    ((AttackAfterBuff) item).execute(self, target);
+                use.getBuffs().stream().filter(item -> item instanceof AttackAfterBuff).forEach(item -> {
+                    ((AttackAfterBuff) item).execute(use, target);
                 });
             }
         }

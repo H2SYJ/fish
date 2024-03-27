@@ -40,7 +40,24 @@ public interface BattlefieldEvent {
             使用卡牌之后;
         }
 
-        void process(Type type, Card card, Biological self, List<Biological> target);
+        /**
+         * @param card   使用的卡牌
+         * @param use    使用者
+         * @param target 目标
+         */
+        void process(Type type, Card card, Biological use, List<Biological> target);
+    }
+
+    interface InjuriedBattlefieldEvent extends BattlefieldEvent {
+        enum Type {
+            受到伤害之前,
+            受到伤害之后;
+        }
+
+        /**
+         * @param target 受到伤害的对象
+         */
+        void process(Type type, Biological target);
     }
 
     interface DiedBattlefieldEvent extends BattlefieldEvent {
@@ -49,6 +66,9 @@ public interface BattlefieldEvent {
             死亡后;
         }
 
+        /**
+         * @param target 死亡的对象
+         */
         void process(Type type, Biological target);
     }
 
