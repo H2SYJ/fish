@@ -68,16 +68,18 @@ public class FightingAI {
     }
 
     public List<Biological> getTargetList(Card card) {
-        if (card instanceof EnemyTargetSelect) {
+        if (card instanceof EnemyTargetSelect select) {
             // 最大的嘲讽值
             int maxTaunt = enemy.stream().mapToInt(item -> item.fightingState.getTaunt()).max().orElse(1);
             int random = Utils.random(1, maxTaunt); // 随机一个攻击的嘲讽值
             // 获取将要攻击的目标列表
             List<Biological> list = enemy.stream().filter(item -> random <= item.fightingState.getTaunt()).toList();
             // 从攻击列表中随机一个目标
-            return List.of(Utils.random(list));
-        } else if (card instanceof FriendlyTargetSelect) {
-            return List.of(Utils.random(friends));
+            Biological target = Utils.random(list);
+            return TargetSelect.calculatorAoe(select, target, enemy);
+        } else if (card instanceof FriendlyTargetSelect select) {
+            Biological target = Utils.random(friends);
+            return TargetSelect.calculatorAoe(select, target, friends);
         } else if (card instanceof SelfTargetSelect) {
             return List.of(self);
         } else {

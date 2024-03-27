@@ -14,7 +14,7 @@ public abstract class Monster extends Biological {
     @Override
     public void action() {
         Runtime.getBattlefield()
-                .ifPresent(item -> new FightingAI(this, item.getMonsters(), item.getFriends()).action());
+                .ifPresent(item -> new FightingAI(this, item.getFriends(this), item.getEnemy(this)).action());
     }
 
 }

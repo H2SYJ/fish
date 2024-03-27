@@ -59,6 +59,7 @@ public class Runtime {
             battlefield.triggerEvent(TurnBattlefieldEvent.class, TurnBattlefieldEvent.Type.回合开始, biological);
             biological.action();
             battlefield.triggerEvent(TurnBattlefieldEvent.class, TurnBattlefieldEvent.Type.回合结束, biological);
+            battlefield.refreshState();
         } while (!battlefield.win() && !battlefield.lose());
         if (battlefield.lose())
             Runtime.endGame();

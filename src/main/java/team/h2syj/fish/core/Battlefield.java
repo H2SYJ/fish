@@ -1,7 +1,6 @@
 package team.h2syj.fish.core;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import lombok.Getter;
@@ -34,13 +33,10 @@ public class Battlefield {
         this.register.scan(this);
     }
 
-    public Battlefield died(Biological biological) {
-        LinkedList<Biological> axis = turn.getAxis();
-        if (!axis.contains(biological))
-            return this;
-        axis.remove(biological);
-        if (biological instanceof Monster)
-            monsters.remove(biological);
+    public Battlefield refreshState() {
+        friends.removeIf(item -> item.getState() == State.死亡);
+        monsters.removeIf(item -> item.getState() == State.死亡);
+        turn.getAxis().removeIf(item -> item.getState() == State.死亡);
         return this;
     }
 
@@ -80,5 +76,19 @@ public class Battlefield {
         else
             friends.add(friend);
         turn.add(friend);
+    }
+
+    public List<Biological> getFriends(Biological self) {
+        if (self instanceof Monster)
+            return monsters;
+        else
+            return friends;
+    }
+
+    public List<Biological> getEnemy(Biological self) {
+        if (self instanceof Monster)
+            return friends;
+        else
+            return monsters;
     }
 }

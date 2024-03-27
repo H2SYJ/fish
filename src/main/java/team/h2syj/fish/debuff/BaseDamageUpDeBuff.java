@@ -19,7 +19,7 @@ public class BaseDamageUpDeBuff extends DamageUpDeBuff {
     }
 
     @Override
-    public double up(double damage, Biological attacker, Biological target) {
+    public double up(double damage, Biological attacker, Biological self) {
         return +1;
     }
 }

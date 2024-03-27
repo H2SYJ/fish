@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.fusesource.jansi.Ansi.Attribute;
 
+import team.h2syj.fish.card.attack.AttackCard_领域压制;
 import team.h2syj.fish.card.buff.BuffCard_重攻击;
 import team.h2syj.fish.card.magic.MagicCard_运筹帷幄;
 import team.h2syj.fish.core.Biological;
@@ -33,6 +34,7 @@ public class Player extends Biological {
         deck.add(new MagicCard_运筹帷幄());
         deck.add(new BuffCard_重攻击());
         deck.add(new BuffCard_重攻击());
+        deck.add(new AttackCard_领域压制());
     }
 
     @Override
@@ -57,8 +59,7 @@ public class Player extends Biological {
                 } else {
                     chooses.add(new Choose(String.valueOf(i + 1), input -> {
                         if (card instanceof TargetSelect targetSelect) {
-                            Biological target = targetSelect.select();
-                            card.execute(this, List.of(target));
+                            card.execute(this, targetSelect.select());
                             continues.set(!(card instanceof AttackCard)); // 非攻击卡不结束回合
                         }
                     }));
@@ -70,6 +71,8 @@ public class Player extends Biological {
                 renderer.newLine().color(ColorList.red_cochineal).print("你当前无法行动").end();
                 return;
             }
+            renderer.newLine().print("n）结束回合").end();
+            chooses.add(new Choose("n", input -> continues.set(false)));
 
             Controller controller;
             do {

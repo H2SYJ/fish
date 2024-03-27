@@ -161,8 +161,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
     public String hpContent() {
         int len = (int) (data.curHp / data.hp * 20);
         String hpBar = IntStream.range(0, 20).mapToObj(i -> i < len ? "|" : "-").collect(Collectors.joining());
-        String hpContent = String.format("血量（%s/%s）：(%s)", data.curHp, data.hp, hpBar);
-        return hpContent;
+        return String.format("血量（%s/%s）：(%s)", data.curHp, data.hp, hpBar);
     }
 
     /**
@@ -223,7 +222,7 @@ public abstract class Biological implements BaseBattlefieldEvent, TurnBattlefiel
 
     @Override
     public String toString() {
-        return String.format("%s（%s/%s）", name, data.getCurHp(), data.getHp());
+        return String.format("%s（%s/%s）", name, Math.ceil(data.getCurHp()), data.getHp());
     }
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.CardBattlefieldEvent.Type;
-import team.h2syj.fish.core.Biological.State;
 import team.h2syj.fish.core.TargetSelect.EnemyTargetSelect;
 import team.h2syj.fish.utils.DamageCalculator;
 
@@ -29,11 +28,6 @@ public interface Card extends Treasure {
         this.process(self, target);
         self.fightingState.modifyAction(-cost);
         battlefield.triggerEvent(CardBattlefieldEvent.class, Type.使用卡牌之后, this, self, target);
-
-        for (Biological biological : target) {
-            if (biological.state == State.死亡)
-                battlefield.died(biological);
-        }
     }
 
     void process(Biological self, List<Biological> target);
@@ -60,6 +54,20 @@ public interface Card extends Treasure {
                 double damage = DamageCalculator.calculate(baseDamage(self, target), self, biological);
                 biological.injuried(damage);
             }
+        }
+    }
+
+    abstract class AoeAttackCard extends AttackCard {
+        public abstract void process(Biological self, Biological mainTarget, List<Biological> minorTarget);
+
+        @Override
+        public void process(Biological self, List<Biological> target) {
+            if (target.isEmpty())
+                return;
+            if (target.size() > 1)
+                process(self, target.get(0), target.subList(1, target.size()));
+            else
+                process(self, target.get(0), List.of());
         }
     }
 

@@ -29,7 +29,7 @@ public interface DeBuff extends Effect {
             super(turn);
         }
 
-        public abstract double up(double damage, Biological attacker, Biological target);
+        public abstract double up(double damage, Biological attacker, Biological self);
     }
 
     // 造成的伤害降低
@@ -38,7 +38,7 @@ public interface DeBuff extends Effect {
             super(turn);
         }
 
-        public abstract double down(double damage, Biological attacker, Biological target);
+        public abstract double down(double damage, Biological attacker, Biological self);
     }
 
     // 数值降低
