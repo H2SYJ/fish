@@ -17,8 +17,10 @@ public class Turn {
     // 行动轴
     @Getter
     private final LinkedList<Biological> axis = new LinkedList<>();
+    private final List<Biological> monsters;
 
     public Turn(Player p1, Player p2, List<Biological> monsters) {
+        this.monsters = monsters;
         axis.add(p1);
         if (p2 != null)
             axis.add(p2);
@@ -36,6 +38,10 @@ public class Turn {
     }
 
     public void add(Biological biological) {
+        if (biological instanceof Monster) {
+            biological.setName(biological.getName() + " " + (char) (monsters.size() + 65));
+            monsters.add(biological);
+        }
         axis.addLast(biological);
     }
 
