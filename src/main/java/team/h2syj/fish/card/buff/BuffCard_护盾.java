@@ -48,8 +48,8 @@ public class BuffCard_护盾 extends BuffCard implements SelfTargetSelect {
         }
 
         @Override
-        public double down(double damage, Biological attacker, Biological target) {
-            return diffValue(target, damage);
+        public double down(double baseDamage, double curDamage, Biological attacker, Biological target) {
+            return diffValue(target, curDamage);
         }
     }
 

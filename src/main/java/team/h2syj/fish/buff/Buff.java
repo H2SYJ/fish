@@ -57,7 +57,7 @@ public interface Buff extends Effect {
             super(turn);
         }
 
-        public abstract double down(double damage, Biological attacker, Biological target);
+        public abstract double down(double baseDamage, double curDamage, Biological attacker, Biological target);
     }
 
     // 数值提升

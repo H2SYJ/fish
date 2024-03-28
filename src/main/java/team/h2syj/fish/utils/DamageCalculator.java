@@ -27,17 +27,17 @@ public class DamageCalculator {
             if (attackerBuff instanceof DamageDownDeBuff buff) // 造成伤害降低DeBuff
                 damage = NumberUtil.add(damage, buff.down(baseDamage, attacker, target));
         }
-        // 目标Buff
-        List<Buff> targetBuffs = target.getBuffs();
-        for (Buff targetBuff : targetBuffs) {
-            if (targetBuff instanceof DamageDownBuff buff) // 受到伤害降低Buff
-                damage = NumberUtil.add(damage, buff.down(baseDamage, attacker, target));
-        }
         // 目标DeBuff
         List<DeBuff> targetDeBuffs = target.getDeBuffs();
         for (DeBuff targetBuff : targetDeBuffs) {
             if (targetBuff instanceof DamageUpDeBuff buff) // 受到伤害提升DeBuff
                 damage = NumberUtil.add(damage, buff.up(baseDamage, attacker, target));
+        }
+        // 目标Buff
+        List<Buff> targetBuffs = target.getBuffs();
+        for (Buff targetBuff : targetBuffs) {
+            if (targetBuff instanceof DamageDownBuff buff) // 受到伤害降低Buff
+                damage = NumberUtil.add(damage, buff.down(baseDamage, damage, attacker, target));
         }
         return damage;
     }

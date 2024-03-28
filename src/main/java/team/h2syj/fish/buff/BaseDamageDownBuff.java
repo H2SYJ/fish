@@ -19,7 +19,7 @@ public class BaseDamageDownBuff extends DamageDownBuff {
     }
 
     @Override
-    public double down(double damage, Biological attacker, Biological target) {
+    public double down(double baseDamage, double curDamage, Biological attacker, Biological target) {
         return -1;
     }
 }

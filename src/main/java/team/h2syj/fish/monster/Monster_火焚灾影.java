@@ -147,10 +147,10 @@ public class Monster_火焚灾影 extends Monster {
         }
 
         @Override
-        public double down(double damage, Biological attacker, Biological target) {
+        public double down(double baseDamage, double curDamage, Biological attacker, Biological target) {
             attacker.getDeBuffs().add(new TurnBeforeDeBuff_灼烧(dotTurn, dotDamage));
             diffValue(target, 1);
-            return -NumberUtil.mul(damage, (0.1));
+            return -NumberUtil.mul(baseDamage, (0.1));
         }
     }
 
