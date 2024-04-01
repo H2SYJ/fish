@@ -1,5 +1,6 @@
 package team.h2syj.fish.core;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,8 @@ import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
 import team.h2syj.fish.core.Renderer.Line;
 import team.h2syj.fish.player.Player;
+import team.h2syj.fish.server.Client;
+import team.h2syj.fish.server.Server;
 import team.h2syj.fish.utils.Utils;
 
 public class Runtime {
@@ -30,7 +33,7 @@ public class Runtime {
                 exit）退出
                 """);
         new Controller().next("1", input -> startSingle())
-                .next("2", input -> System.out.println("等待实现"))
+                .next("2", input -> startDouble())
                 .next("exit", System.out::println);
     }
 
@@ -45,6 +48,26 @@ public class Runtime {
         renderer.newLine().end();
         Controller.enterContinue();
         new World(player).start();
+    }
+
+    public static void startDouble() {
+        Renderer.eraseScreen();
+        Renderer renderer = new Renderer("双人游戏");
+        renderer.print("1）启动主机").end();
+        renderer.print("2）连接主机").end();
+
+        new Controller().next("1", input -> {
+            try (Server server = new Server()) {
+                server.start();
+                new Client("127.0.0.1", Server.port).run();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).next("2", input -> {
+            String host = new Controller("主机地址").getInput();
+            String port = new Controller("主机端口").getInput();
+            new Client(host, Integer.parseInt(port)).run();
+        });
     }
 
     public static void fighting(Player p1, Player p2, List<Biological> monsters) {
