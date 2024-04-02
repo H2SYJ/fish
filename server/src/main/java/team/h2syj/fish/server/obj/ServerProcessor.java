@@ -1,6 +1,4 @@
-package team.h2syj.fish.server;
-
-import team.h2syj.fish.server.obj.MessageData;
+package team.h2syj.fish.server.obj;
 
 public abstract class ServerProcessor {
     public abstract void execute(MessageData data);

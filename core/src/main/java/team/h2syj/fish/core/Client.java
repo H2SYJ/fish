@@ -1,4 +1,4 @@
-package team.h2syj.fish.server;
+package team.h2syj.fish.core;
 
 import java.io.IOException;
 import java.net.Socket;

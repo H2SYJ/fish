@@ -3,8 +3,7 @@ package team.h2syj.fish.server.obj;
 import cn.hutool.core.convert.Convert;
 import lombok.Data;
 import lombok.Getter;
-import team.h2syj.fish.server.ServerProcessor;
-import team.h2syj.fish.server.ServerProcessor.ChooseServerProcessor;
+import team.h2syj.fish.server.obj.ServerProcessor.ChooseServerProcessor;
 import team.h2syj.fish.utils.BeanUtils;
 
 @Data
