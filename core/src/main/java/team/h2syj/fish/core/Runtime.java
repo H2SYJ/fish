@@ -30,7 +30,7 @@ public class Runtime {
                 exit）退出
                 """);
         new Controller().next("1", input -> startSingle())
-                .next("2", input -> System.out.println("等待实现"))
+                .next("2", input -> startDouble())
                 .next("exit", System.out::println);
     }
 
@@ -45,6 +45,15 @@ public class Runtime {
         renderer.newLine().end();
         Controller.enterContinue();
         new World(player).start();
+    }
+
+    public static void startDouble() {
+        Renderer.eraseScreen();
+        new Renderer("双人游戏");
+
+        String host = new Controller("主机地址").getInput();
+        String port = new Controller("主机端口").getInput();
+        new Client(host, Integer.parseInt(port)).run();
     }
 
     public static void fighting(Player p1, Player p2, List<Biological> monsters) {
