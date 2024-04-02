@@ -49,13 +49,7 @@ public class Turn {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (Biological biological : axis) {
-            String name = "";
-            if (biological == Runtime.me())
-                name = "我";
-            else if (biological instanceof Player)
-                name = "玩家";
-            else if (biological instanceof Monster monster)
-                name = monster.getName();
+            String name = biological.getName();
             builder.append(name);
             if (biological != axis.getLast())
                 builder.append(" => ");
