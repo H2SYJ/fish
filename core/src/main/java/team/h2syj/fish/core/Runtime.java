@@ -8,12 +8,12 @@ import java.util.concurrent.atomic.AtomicReference;
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
 import team.h2syj.fish.core.Renderer.Line;
+import team.h2syj.fish.net.Client;
 import team.h2syj.fish.player.Player;
 import team.h2syj.fish.utils.Utils;
 
 public class Runtime {
 
-    private static Player me = null;
     private static Battlefield battlefield = null;
 
     public static void home() {
@@ -37,7 +37,6 @@ public class Runtime {
     public static void startSingle() {
         Player player = new Player();
         player.setName("我");
-        me = player;
         Renderer renderer = new Renderer("初始卡牌");
         player.deck.stream().forEach(card -> {
             renderer.newLine().color(card.getColor()).print(card).end();
@@ -76,11 +75,11 @@ public class Runtime {
         battlefield = null;
     }
 
-    public static <T> T choose(String title, String tips, List<T> list) {
-        return choose(title, tips, list, null).orElseThrow();
+    public static <T> T choose(Player player, String title, String tips, List<T> list) {
+        return choose(player, title, tips, list, null).orElseThrow();
     }
 
-    public static <T> Optional<T> choose(String title, String tips, List<T> list, String cancel) {
+    public static <T> Optional<T> choose(Player player, String title, String tips, List<T> list, String cancel) {
         Renderer renderer = new Renderer(title);
         List<Choose> targetChooses = new ArrayList<>();
         AtomicReference<T> select = new AtomicReference<>();
@@ -100,7 +99,7 @@ public class Runtime {
         }
         Controller controller;
         do {
-            controller = new Controller(tips);
+            controller = new Controller(player, tips);
             for (Choose choose : targetChooses) {
                 controller.next(choose);
             }
@@ -108,7 +107,7 @@ public class Runtime {
         return Optional.ofNullable(select.get());
     }
 
-    private static void endGame() {
+    public static void endGame() {
         Renderer renderer = new Renderer("游戏结束");
         renderer.print("啊哈！你输了！").end();
         throw new GameOverException();
@@ -116,10 +115,6 @@ public class Runtime {
 
     public static Optional<Battlefield> getBattlefield() {
         return Optional.ofNullable(battlefield);
-    }
-
-    public static Player me() {
-        return me;
     }
 
     public static class GameOverException extends RuntimeException {

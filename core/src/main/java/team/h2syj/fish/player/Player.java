@@ -57,7 +57,7 @@ public class Player extends Biological {
                 } else {
                     chooses.add(new Choose(String.valueOf(i + 1), input -> {
                         if (card instanceof TargetSelect targetSelect) {
-                            card.execute(this, targetSelect.select());
+                            card.execute(this, targetSelect.select(this));
                             continues.set(!(card instanceof AttackCard)); // 非攻击卡不结束回合
                         }
                     }));
@@ -74,7 +74,7 @@ public class Player extends Biological {
 
             Controller controller;
             do {
-                controller = new Controller("等待行动");
+                controller = new Controller(this, "等待行动");
                 for (Choose choose : chooses) {
                     controller.next(choose);
                 }
