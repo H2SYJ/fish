@@ -10,6 +10,18 @@ import team.h2syj.fish.utils.Utils;
  */
 public class Renderer {
 
+    public interface Output {
+        default void println() {
+            println("");
+        }
+
+        default void println(Object content) {
+            print(String.format("%s%n", content));
+        }
+
+        void print(Object content);
+    }
+
     public Renderer() {
     }
 
@@ -18,7 +30,7 @@ public class Renderer {
                 .fgRgb(ColorList.blue_西子)
                 .a(String.format("============%s============", title))
                 .reset();
-        System.out.println(content);
+        SystemSetting.output.println(content);
     }
 
     public Line newLine() {
@@ -34,7 +46,7 @@ public class Renderer {
     }
 
     public static void eraseScreen() {
-        System.out.println(Ansi.ansi().eraseScreen());
+        SystemSetting.output.println(Ansi.ansi().eraseScreen());
     }
 
     public Renderer slowPrintln(long time, String template, Object... args) {
@@ -44,13 +56,13 @@ public class Renderer {
         int length = content.length();
         long sleep = time / length;
         for (int i = 0; i < length; i++) {
-            System.out.print(content.charAt(i));
+            SystemSetting.output.print(content.charAt(i));
             try {
                 Thread.sleep(sleep);
             } catch (InterruptedException ignored) {
             }
         }
-        System.out.println();
+        SystemSetting.output.println();
         return this;
     }
 
@@ -105,7 +117,7 @@ public class Renderer {
         }
 
         public void end() {
-            System.out.println(this.content.reset());
+            SystemSetting.output.println(this.content.reset());
         }
     }
 

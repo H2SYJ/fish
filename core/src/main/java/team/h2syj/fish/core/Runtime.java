@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import team.h2syj.fish.core.BattlefieldEvent.BaseBattlefieldEvent;
 import team.h2syj.fish.core.BattlefieldEvent.TurnBattlefieldEvent;
 import team.h2syj.fish.core.Renderer.Line;
+import team.h2syj.fish.net.Client;
 import team.h2syj.fish.player.Player;
 import team.h2syj.fish.utils.Utils;
 
@@ -108,7 +109,7 @@ public class Runtime {
         return Optional.ofNullable(select.get());
     }
 
-    private static void endGame() {
+    public static void endGame() {
         Renderer renderer = new Renderer("游戏结束");
         renderer.print("啊哈！你输了！").end();
         throw new GameOverException();

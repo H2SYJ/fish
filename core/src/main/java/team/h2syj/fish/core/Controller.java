@@ -1,6 +1,5 @@
 package team.h2syj.fish.core;
 
-import java.util.Scanner;
 import java.util.function.Consumer;
 
 import lombok.Getter;
@@ -10,7 +9,10 @@ import lombok.Getter;
  */
 @Getter
 public class Controller {
-    private static final Scanner scanner = new Scanner(System.in);
+    public interface Input {
+        String nextLine();
+    }
+
     private final String input;
     private boolean match = false;
 
@@ -19,8 +21,8 @@ public class Controller {
     }
 
     public Controller(String tips) {
-        System.out.printf("%s: ", tips);
-        this.input = scanner.nextLine();
+        SystemSetting.output.print(String.format("%s: ", tips));
+        this.input = SystemSetting.input.nextLine();
     }
 
     public Controller next(String regex, Consumer<String> callBack) {
