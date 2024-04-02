@@ -22,7 +22,7 @@ public class ServerRuntime {
             p1.setName("P1");
         } else {
             p2 = new ServerPlayer(session);
-            p1.setName("P2");
+            p2.setName("P2");
         }
         ConnectionData data = new ConnectionData();
         data.setSessionId(session.getId());
