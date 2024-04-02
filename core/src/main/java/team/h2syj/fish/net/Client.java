@@ -12,6 +12,7 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import team.h2syj.fish.core.Runtime;
 import team.h2syj.fish.core.SystemSetting;
+import team.h2syj.fish.net.obj.ConnectionData;
 import team.h2syj.fish.net.obj.MessageData;
 import team.h2syj.fish.net.obj.MessageData.Type;
 
@@ -42,6 +43,10 @@ public class Client extends WebSocketListener {
         MessageData data = JSONUtil.toBean(text, MessageData.class);
         Type type = data.getType();
         switch (type) {
+        case 连接成功 -> {
+            ConnectionData connection = data.convert(ConnectionData.class);
+            SystemSetting.output.println(String.format("连接成功，你是%s玩家", connection.isP1() ? "P1" : "P2"));
+        }
         case 渲染内容 -> SystemSetting.output.print(data.convert(String.class));
         case 等待输入 -> {
             String input = SystemSetting.input.nextLine();
