@@ -30,9 +30,14 @@ public class MonsterWorldEvent_史莱姆 extends MonsterWorldEvent {
         p1.getData().modifyGold(5);
         if (p2 != null)
             p2.getData().modifyGold(5);
-
-        List<Card> cards = Treasure.getCards(Rarity.normal, 3);
-        Runtime.choose("选择卡牌加入到卡组", "选择", cards, "拒绝").ifPresent(Runtime.me().getDeck()::add);
+        {
+            List<Card> cards = Treasure.getCards(Rarity.normal, 3);
+            Runtime.choose(p1, "选择卡牌加入到卡组", "选择", cards, "拒绝").ifPresent(p1.getDeck()::add);
+        }
+        if (p2 != null) {
+            List<Card> cards = Treasure.getCards(Rarity.normal, 3);
+            Runtime.choose(p2, "选择卡牌加入到卡组", "选择", cards, "拒绝").ifPresent(p2.getDeck()::add);
+        }
     }
 
 }

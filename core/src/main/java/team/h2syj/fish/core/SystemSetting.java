@@ -16,5 +16,5 @@ public class SystemSetting {
     public static double difficulty = 1d;
 
     public static Output output = System.out::print;
-    public static Input input = () -> new Scanner(System.in).nextLine();
+    public static Input input = (player) -> new Scanner(System.in).nextLine();
 }

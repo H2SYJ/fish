@@ -49,7 +49,7 @@ public class Client extends WebSocketListener {
         }
         case 渲染内容 -> SystemSetting.output.print(data.convert(String.class));
         case 等待输入 -> {
-            String input = SystemSetting.input.nextLine();
+            String input = SystemSetting.input.nextLine(null);
             MessageData messageData = Type.输入完成.initMessage();
             messageData.setData(input);
             socket.send(JSONUtil.toJsonStr(messageData));

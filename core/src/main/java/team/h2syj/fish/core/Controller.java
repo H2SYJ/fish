@@ -3,6 +3,7 @@ package team.h2syj.fish.core;
 import java.util.function.Consumer;
 
 import lombok.Getter;
+import team.h2syj.fish.player.Player;
 
 /**
  * 控制器：用户输入做出的选择
@@ -10,19 +11,27 @@ import lombok.Getter;
 @Getter
 public class Controller {
     public interface Input {
-        String nextLine();
+        String nextLine(Player player);
     }
 
     private final String input;
     private boolean match = false;
 
     public Controller() {
-        this("选择");
+        this(null, "选择");
     }
 
     public Controller(String tips) {
+        this(null, tips);
+    }
+
+    public Controller(Player player) {
+        this(player, "选择");
+    }
+
+    public Controller(Player player, String tips) {
         SystemSetting.output.print(String.format("%s: ", tips));
-        this.input = SystemSetting.input.nextLine();
+        this.input = SystemSetting.input.nextLine(player);
     }
 
     public Controller next(String regex, Consumer<String> callBack) {

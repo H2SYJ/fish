@@ -48,9 +48,8 @@ public class BeanUtils {
                 if (childClass.isEnum())
                     continue;
                 String packageName = childClass.getPackageName();
-                if (packageName.startsWith("java"))
-                    continue;
-                result.addAll(loadAllObj(child));
+                if (packageName.startsWith("team.h2syj"))
+                    result.addAll(loadAllObj(child));
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             }

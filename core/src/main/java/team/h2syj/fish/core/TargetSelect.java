@@ -7,11 +7,12 @@ import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
+import team.h2syj.fish.player.Player;
 import team.h2syj.fish.utils.BeanUtils;
 
 public interface TargetSelect {
 
-    List<Biological> select();
+    List<Biological> select(Player self);
 
     /**
      * 计算Aoe
@@ -41,10 +42,10 @@ public interface TargetSelect {
      */
     interface EnemyTargetSelect extends TargetSelect {
         @Override
-        default List<Biological> select() {
+        default List<Biological> select(Player self) {
             Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
             List<Biological> monsters = battlefield.getMonsters();
-            Biological target = Runtime.choose("选择目标", "选择目标", monsters);
+            Biological target = Runtime.choose(self, "选择目标", "选择目标", monsters);
             return calculatorAoe(this, target, monsters);
         }
     }
@@ -54,10 +55,10 @@ public interface TargetSelect {
      */
     interface FriendlyTargetSelect extends TargetSelect {
         @Override
-        default List<Biological> select() {
+        default List<Biological> select(Player self) {
             Battlefield battlefield = Runtime.getBattlefield().orElseThrow();
             List<Biological> friends = battlefield.getFriends();
-            Biological target = Runtime.choose("选择目标", "选择目标", friends);
+            Biological target = Runtime.choose(self, "选择目标", "选择目标", friends);
             return calculatorAoe(this, target, friends);
         }
     }
@@ -67,8 +68,8 @@ public interface TargetSelect {
      */
     interface SelfTargetSelect extends TargetSelect {
         @Override
-        default List<Biological> select() {
-            return List.of(Runtime.me());
+        default List<Biological> select(Player self) {
+            return List.of(self);
         }
     }
 
