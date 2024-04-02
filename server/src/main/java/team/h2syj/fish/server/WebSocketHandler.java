@@ -3,6 +3,7 @@ package team.h2syj.fish.server;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -21,7 +22,7 @@ import team.h2syj.fish.net.obj.MessageData;
 public class WebSocketHandler extends TextWebSocketHandler {
 
     private static final Map<String, WebSocketSession> map = new ConcurrentHashMap<>();
-    private static final int POLLING_TIME = 60 * 1000; // 心跳轮询时间60秒
+    private static final long POLLING_TIME = TimeUnit.MINUTES.toMillis(1); // 心跳轮询时间60秒
 
     static {
         new Thread(() -> {

@@ -1,5 +1,7 @@
 package team.h2syj.fish.net;
 
+import java.util.concurrent.TimeUnit;
+
 import org.jetbrains.annotations.NotNull;
 
 import cn.hutool.json.JSONUtil;
@@ -25,9 +27,10 @@ public class Client extends WebSocketListener {
     }
 
     public void run() {
+        long millis = TimeUnit.MINUTES.toMillis(1);
         while (run) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(millis);
             } catch (InterruptedException ignored) {
             }
             socket.send(JSONUtil.toJsonStr(Type.PING.initMessage()));

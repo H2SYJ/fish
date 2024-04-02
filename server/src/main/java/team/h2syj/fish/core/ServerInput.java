@@ -13,6 +13,8 @@ public class ServerInput implements Input {
 
     @Override
     public String nextLine() {
+        // 发送指令输入
+        // 接收到输入的值进行返回
         return null;
     }
 }
